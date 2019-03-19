@@ -1,0 +1,42 @@
+@(myForm:Form[SaveFoods],myList:List[Cows])
+@import helper._;
+<html>
+    <head>
+        <title>
+            บันทึกให้อาหารโคขุน
+        </title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-11">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                    @helper.form(action = routes.saveKKFarmController.update(), 'enctype -> "multipart/form-data") {
+                        <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                        <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-11">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+
+                    </div>
+                    <div class="panel-body">
+                        test.
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

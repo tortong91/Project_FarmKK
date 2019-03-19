@@ -1,0 +1,60 @@
+@(show:List[Cows])
+@import helper._;
+<html>
+    <head>
+        <title>รับโคขุนเข้าฟาร์ม</title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+    </head>
+    <body style="background-color: seashell;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-11">
+        <ol class="breadcrumb">
+            <li><a href="/">หน้าหลัก</a></li>
+            <li class="active">รับโคขุนเข้าฟาร์ม</li>
+        </ol>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">สถานะรับโคขุน</div>
+                        <div class="panel-body">
+
+                            <table class="table">
+                                <tr>
+                                    <th>หมายเลขประจำตัวโคขุน</th>
+                                    <th>ราคา(บาท)</th>
+                                    <th>ส่วนสูง(กิโลกรัม)</th>
+                                    <th>สถานะการรับ</th>
+                                    <th>ภาพประกอบ</th>
+                                </tr>
+                                @for(s <- show) {
+                                    <tr>
+                                        <td>@s.getCow_id</td>
+                                        <td>@s.getPrice บาท</td>
+                                        <td>@s.getHeight Kg.</td>
+                                        <td>@if(s.getStatus=="ได้รับโคขุนแล้ว ✓"){
+                                            <center><div class="alert alert-success">@s.getStatus</div></center>
+                                        }else{
+                                            <div class="alert alert-danger">
+                                             <center>
+                                                 <a href="/editcow1/@s.getCow_id"><span class="glyphicon glyphicon-cloud-upload">ยืนยัน</span></a></center>
+                                            </div>
+
+                                        }
+
+                                        </td>
+                                        <td><img src="/assets/images/Piccow/@s.getPicture" class="img-thumbnail" width="100px" height="auto" ></td>
+                                    </tr>
+                                }
+                            </table>
+
+                        </div><!--\panel-->
+                    </div><!--\panel-->
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>
+

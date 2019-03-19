@@ -1,0 +1,4 @@
+@(id : List[DetailRecip])
+@for(s <- id){
+    @s.getAmount @s.getInputfoods.getFood.getAnimalfoods_name @s.getRecipe.getNameRecip
+}

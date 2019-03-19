@@ -1,0 +1,79 @@
+
+@(myForm:Form[Cows],myList:List[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showcow">ข้อมูลโคขุน</a></li>
+                            <li class="active">แก้ไขข้อมูลการรับโคขุน</li>
+                        </ol>
+                        <h1>แก้ไขข้อมูลการรับโคขุน</h1>
+                        <p style="color: red;">**เมื่อทำการแก้ไขข้อมูลเรียบร้อยแล้วให้คลิกที่ปุ่ม "แก้ไขข้อมูล"</p>
+                        @if(flash.containsKey("Errorcow")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                            </div>
+                        }
+                        @helper.form(action = routes.cowkhunController.update()  ,'enctype->"multipart/form-data"){
+                            @inputText(myForm("cow_id"),'_label->"รหัสโคขุน",'size->"10",'maxlength->"3",'required->"required",'class->"form-control")
+                            @select(myForm("breed.id"),options=myList.map(fac=>fac.getId->fac.getName),'class->"form-control",'_label->"สายพันธุ์")
+                            @inputText(myForm("weight"),'_label->"น้ำหนัก",'size->"10",'maxlength->"3",'required->"required",'class->"form-control")
+                            @inputText(myForm("height"),'_label->"ส่วนสูง",'size->"10",'maxlength->"3",'required->"required",'class->"form-control")
+                            @inputText(myForm("age"),'_label->"อายุ",'size->"10",'maxlength->"2",'required->"required",'class->"form-control")
+                           <div class="panel panel-warning"> <div style="padding: 10px;">
+                            @inputRadioGroup(myForm("sex"),options = Seq("ตัวผู้"->"ตัวผู้","ตัวเมีย"->"ตัวเมีย"),'_label->"เพศ")
+                               @inputRadioGroup(myForm("color"),options = Seq("สีขาว"->"สีขาว","สีดำ"->"สีดำ","สีน้ำตาล"->"สีน้ำตาล","สีแดง"->"สีแดง"),'_label->"ลักษณะสี")
+                           </div> </div>
+                            @inputDate(myForm("status"),'_label->"วันที่รับ",'class->"form-control")
+                            @inputFile(myForm("picture"),'_label->"รูปภาพ",'class->"form-control")
+                            <input type="submit" value="แก้ไขข้อมูล" class="btn-success btn-lg">
+
+
+                        <br>
+
+
+}
+</div>
+                </div>
+
+
+        </div>
+    </body>
+</html>

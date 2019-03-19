@@ -1,0 +1,62 @@
+@(show:List[farm])
+<html>
+    <head>
+        <title>
+            ข้อมูลฟาร์ม
+        </title>
+    </head>
+    <body bgcolor="#f5f5dc">
+        @for(s<-show) {
+
+
+<table>
+    <tr>
+
+        <th colspan="3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+          @if(session.get("position")=="Admin"){
+            <center>| @s.getFram_name |<a href="/editfarm/@s.getFarm_id" style="float: right; color: tomato;"><span class="glyphicon glyphicon-cog"></span> แก้ไข</a></center>
+
+          }else{
+              @if(session.get("position")=="User"){
+                  <center>| @s.getFram_name |<a href="/editfarm/@s.getFarm_id" style="float: right; color: tomato;"><span class="glyphicon glyphicon-cog"></span> แก้ไข</a></center>
+
+              }else{
+                  <center>| @s.getFram_name |</center>
+              }
+          }
+                </div>
+            </div>
+        </th>
+
+
+    </tr>
+    <tr>
+        <td >&nbsp;</td>
+        <td><center><img src="assets/images/path_farm/@s.getPicture" width="100%" height="auto" class="img-rounded" alt="Cinque Terre"></center></td>
+        <td >&nbsp;</td>
+    </tr>
+    <tr>
+        <td width="100">&nbsp;</td>
+        <td><br>
+            <p>
+              <h3>@s.getFram_name</h3><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>ที่อยู่</b> &nbsp; @s.getFarm_address<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>เบอร์โทรติดต่อ</b>&nbsp;  @s.getFarm_tel<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>รายละเอียด</b>&nbsp; @s.getFarm_details<br><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>อัพเดทข้อมูลเมื่อ</b>&nbsp; @s.getDate_farm<br><br>
+            <br>
+            <center>--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</center>
+            </p>
+        </td>
+        <td  width="200">&nbsp;</td>
+
+    </tr>
+</table>
+
+        }
+
+
+    </body>
+</html>

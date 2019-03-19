@@ -1,0 +1,20 @@
+@(show:Vacs)
+
+    <html>
+        <head>
+            <title>
+            รายละเอียด
+            </title>
+
+        </head>
+        <body>
+
+                <table align="center">
+                    <tr><th colspan="2">รายละเอียดของวัคซีน</th></tr>
+                    <tr><th colspan="2"><img src="assets/images/PicVac/@show.getPicture" class="img-thumbnail" width="100px" height="auto" ></th></tr>
+                    <tr><td></td><td>@show.getId</td></tr>
+                    <tr><td></td><td>@show.getName</td></tr>
+                    <tr><td></td><td>@show.getPr</td></tr>
+                </table>
+             </body>
+    </html>

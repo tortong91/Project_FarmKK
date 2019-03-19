@@ -1,0 +1,69 @@
+@(myForm:Form[Vacs])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css/" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+
+
+                <div class="row">
+
+                    <div class="col-md-11">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showvac">ข้อมูลวัคซีน</a></li>
+                            <li class="active">เพิ่มวัคซีน</li>
+                        </ol>
+                        <h1>แก้ไขข้อมูลวัคซีน</h1>
+                        <p style="color: red;">**แก้ไขข้อมูลหากกรอกข้อมูลแก้ไขนำเข้าวัคซีนเสร็จให้คลิกที่ปุ่ม "แก้ไขข้อมูล" </p>
+                        @if(flash.containsKey("Errorvac")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorvac").
+                            </div>
+                        }
+                        @helper.form(action = routes.vacController.update(),'enctype->"multipart/form-data"){
+                            @inputText(myForm("name"),'_label->"ชื่อวัคซีน",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control",'placeholder->"กรอกชื่อยา")
+                            @textarea(myForm("pr"),'_label->"สรรพคุณทางยา",'size->"210",'maxlength->"200",'required->"required",'class->"form-control",'placeholder->"กรอกสรรพคุณที่ได้จากวัคซีน")
+                            @inputFile(myForm("picture"),'_label->"รูปภาพประกอบ",'class->"form-control")
+                            <input type="submit" value="แก้ไขข้อมูล" class="btn-success">
+                            }
+                    </div>
+            </div>
+
+
+
+
+        </div>
+    </body>
+</html>

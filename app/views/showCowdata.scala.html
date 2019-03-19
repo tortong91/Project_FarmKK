@@ -1,0 +1,101 @@
+@(show:List[Cows],myList:List[breeds])
+<html>
+    <head>
+        <title>ข้อมูลพื้นฐาน > ข้อมูลโคขุน</title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li class="active">ข้อมูลโคขุน</li>
+                        </ol>
+                        <h1>ข้อมูลโคขุน</h1>
+                        <p style="color: red;">**เป็นการที่เจ้าของฟาร์มใช้กรอกข้อมูลโคขุนที่ได้ซื้อโคขุนเข้ามาภายในฟาร์ม กรอกแล้วข้อมูลจะส่งไปที่ข้อมูลพื้นฐานในส่วนของ "ข้อมูลโคขุน" ครับ</p>
+                        @if(flash.containsKey("Errorcow")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                            </div>
+                        }
+
+
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <span class="glyphicon glyphicon-folder-open"></span> โคขุนหนองแวง
+                            </div>
+                            <div class="panel-body">
+                                <center><b>ค้นหาตามรหัส</b><form method="post" action="two">
+                                    <input name="search" type="text"><input type="submit" value="ค้นหา">
+                                </form></center>
+                                </table>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>โคขุนหมายเลข</th>
+                                            <th>น้ำหนัก</th>
+                                            <th>อายุโคขุน</th>
+                                            <th>เพศ</th>
+                                            <th>นำเข้าโคขุนเมื่อ</th>
+                                            <th>สายพันธุ์</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    @for(s <- show){
+
+                                        <tr class="panel-info"><td>@s.getCow_id</td>
+                                            <td>@s.getWeight Kg.</td>
+                                            <td>@s.getAge ปี</td>
+                                            <td>@s.getSex</td>
+                                            <td>@s.getDate</td>
+                                            <td>@s.getBreed.getName</td>
+
+
+
+                                            <td><img src="/assets/images/Piccow/@s.getPicture" class="img-thumbnail" width="100px" height="auto" ></td>
+                                            @if(session.get("position")=="Admin") {
+                                                <td align="center">
+
+
+                                                    <a href="/editcow/@s.getCow_id"><button class="btn btn-success">
+                                                        <span class="glyphicon glyphicon-cog"></span>
+                                                    </button></a>
+                                                    <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <button class="btn btn-danger">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </button></a>
+                                                    <a href="/detailsCow/@s.getCow_id">  <button class="btn btn-light">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                    </button></a>
+                                                </td>
+                                                @if(session.get("position")=="Webmaster"){
+                                                    <td align="center">
+                                                        <a href="/editcow/@s.getCow_id"><button class="btn btn-success">
+                                                            <span class="glyphicon glyphicon-cog"></span>
+                                                        </button></a>
+                                                        <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <button class="btn btn-danger">
+                                                            <span class="glyphicon glyphicon-trash"></span>
+                                                        </button></a>
+                                                        <a href="/detailsCow/@s.getCow_id">  <button class="btn btn-light">
+                                                            <span class="glyphicon glyphicon-eye-open"></span>
+                                                        </button></a>
+                                                    </td>
+                                                }
+                                            }else{
+                                                  }
+                                        </tr>}
+                    </tbody>
+                    </table>
+
+
+
+
+                    </div>
+                    </div>
+                    </div>
+
+                </div>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,80 @@
+@(myShow:List[Inputfood], myList: List[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ข้อมูลการรับอาหาร
+        </title>
+    </head>
+    <body>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <a href="/addinputfoods"><button class="btn btn-primary">
+                    <span class="glyphicon-glyphicon-plus" style="float: right;"> เพิ่มข้อมูลอาหาร </span>
+                </button></a>
+            </div>
+            <div class="panel-body">
+
+
+                <h1>ข้อมูลรับอาหาร</h1>
+                <p style="color: red;">**แสดงข้อมูลการรับอาหารเ</p>
+                @if(flash.containsKey("Errorinputfood")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorinputfood").
+                    </div>
+                }
+               <table  align="center" class="table">
+                    <thead>
+                        <tr>
+
+                            <th>ชื่ออาหาร</th>
+                            <th>จำนวน</th>
+                            <th>น้ำหนัก</th>
+                            <th>น้ำหนักรวม</th>
+                            <th>อาหารประเภท</th>
+                            <th>ราคา</th>
+                            <th>ราคารวม</th>
+                            <th>รูปภาพประกอบ</th>
+
+                            <th>จัดการ</th>
+                        </tr>  @for(s <- myShow){
+
+                            <tr>
+                                <td >@s.getFood.getAnimalfoods_name</td>
+                                <td >@s.getAmount_ifoods @s.getUnit </td>
+                                <td >@s.getAmountKg Kg. /@s.getUnit </td>
+                                <td ><font color="red">@s.getTotal Kg.</font></td>
+                                <td >@s.getFood.getAnimalfoods_type</td>
+                                <td >@s.getPrice_ifoods บาท/@s.getUnit</td>
+                                <td >@s.getTotalPrice บาท</td>
+                                <td><img src="/assets/images/Pic/@s.getPicture" width="100px"> </td>
+                                <td align="center">
+                                    <a href="/editinputfoods/@s.getId_ifoods"><button class="btn btn-secondary">
+                                        <span class="glyphicon glyphicon-plus"></span> รับอาหารเพิ่ม
+                                    </button></a>
+                                    <a href="/deleteinputfoods/@s.getId_ifoods" onclick="return confirm('Delete')">
+                                        <button class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </a>
+
+                                </td>
+                            </tr>
+
+
+                    </thead>
+                    }
+                </table>
+
+            </div>
+        </div>
+</div>
+
+
+
+    </body>
+</html>

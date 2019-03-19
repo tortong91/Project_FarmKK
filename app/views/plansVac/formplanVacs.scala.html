@@ -1,0 +1,57 @@
+@(myForm:Form[PlanVacs],MyListVac:List[Vacs],myListCow:List[Cows])
+<html>
+    <head>
+        <title>
+            แผนการฉีดวัคซีน
+        </title>
+    </head>
+    <body>
+        @import helper._;
+    <html>
+        <head>
+            <title>
+                แผนการฉีดวัคซีน
+            </title>
+
+        </head>
+        <body style="margin: 0 auto;" >
+            <div class="container">
+                    <!---->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+
+                                <ol class="breadcrumb">
+                                    <li><a href="/">หน้าหลัก</a></li>
+                                    <li class="active">แผนการฉีดวัคซีน</li>
+                                </ol>
+                                <h1>แผนการฉีดวัคซีน</h1>
+                                <p style="color: red;">**กำหนด วางแผนการฉีดวัคซีน</p>
+                                @if(flash.containsKey("Errorvac")){
+                                    <div class="alert alert-danger">
+                                        <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorvac").
+                                    </div>
+                                }
+                                @helper.form(action = routes.vacController.inputPlan() ,'enctype->"multipart/form-data"){
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                        @select(myForm("vac.id"),options=MyListVac.map(fac=>fac.getId->fac.getName),'_label->"วัคซีนที่ใช้",'class->"form-control")
+                                        </div>
+                                        <div class="col-md-4">
+                                        @select(myForm("cow_cow.id"),options=myListCow.map(fac=>fac.getCow_id->fac.getCow_id),'_label->"เลือกโคขุน",'class->"form-control")
+                                        </div>
+                                        <div class="col-md-4">
+                                        @inputDate(myForm("pvacdate"),'_label->"กำหนดวันฉีดวัคซีน" ,'class->"form-control")
+    </div>
+
+    <center>
+        <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> จัดแผนการฉีดวัคซีน</button>
+    </center>
+
+                                        }
+    </div>
+
+    </body>
+</html>

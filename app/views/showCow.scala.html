@@ -1,0 +1,174 @@
+@(show:List[Cows],myForm:Form[Cows],myList:List[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>ข้อมูลโคขุน</title>
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body style="background-color: seashell;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+    <!---->
+
+
+                    @*<center><b style="font-size: 13pt;">ค้นหาตามหมายเลขโคขุน  <form method="post" action="/two">*@
+
+
+                        @*<input type="text" name="search" width="100">*@
+                        @*<input type="submit" value="ค้นหา" class="btn-success">*@
+
+                    @*</form></b></center>*@
+
+
+
+
+                    <div class="container-fluid">
+
+                       <div class="row">
+
+                           <ol class="breadcrumb">
+                               <li><a href="/">หน้าหลัก</a></li>
+                               <li><a href="/showcow">ข้อมูลโคขุน</a></li>
+                               <li class="active">รับโคขุน</li>
+                           </ol>
+                           <h1>รับโคขุนเข้าฟาร์ม</h1>
+                           <p style="color: red;">**เป็นการที่เจ้าของฟาร์มใช้กรอกข้อมูลโคขุนที่ได้ซื้อโคขุนเข้ามาภายในฟาร์ม กรอกแล้วข้อมูลจะส่งไปที่ข้อมูลพื้นฐานในส่วนของ "ข้อมูลโคขุน" ครับ</p>
+
+                       </div>
+                       @helper.form(action = routes.cowkhunController.input() ,'enctype->"multipart/form-data"){
+                           <div class="row">
+                               <div class="panel panel-success">
+                                   <div class="panel-heading">
+                                       <span class="glyphicon glyphicon-plus"></span>  Form Add
+                                   </div>
+                                   <div class="panel-body">
+                                       <div class="col-md-6">
+
+                                           @select(myForm("breed.id"),options=myList.map(fac=>fac.getId->fac.getName),'class->"form-control",'_label->"สายพันธุ์")
+
+                                           @inputText(myForm("Cow_id"),'_label->"หมายเลขประจำตัวโคขุน",'maxlength->"10",'required->"required",'class->"form-control",'placeholder->"หมายเลขประจำตัว 10 หลักโคขุน")
+                                           @inputText(myForm("weight"),'_label->"น้ำหนัก(กิโลกรัม)",'size->"10",'maxlength->"3",'required->"required",'class->"form-control" ,'placeholder->"น้ำหนัก (กิโลกรัม)")
+                                           @inputText(myForm("height"),'_label->"ส่วนสูง(เซนติเมตร)",'size->"10",'maxlength->"3",'required->"required",'class->"form-control",'placeholder->"ส่วนสูง (เซนติเมตร)")
+
+
+
+                                       </div>
+
+
+                                       <div class="col-md-6">
+                                           @inputText(myForm("age"),'_label->"อายุ(ปี)",'size->"10",'maxlength->"3",'required->"required",'class->"form-control",'placeholder->"อายุ")
+
+                                           @inputRadioGroup(myForm("sex"),options = Seq("ตัวผู้"->"ตัวผู้","ตัวเมีย"->"ตัวเมีย"),'_label->"เพศ")
+                                           @inputText(myForm("color"),'_label->"ลักษณะสี",'class->"form-control")
+
+
+                                           @inputFile(myForm("picture"),'_label->"รูปภาพ",'class->"form-control")
+
+                                       </div>
+                                   </div><br>
+                                   <center>
+
+                                       <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                                       <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                                   </center>
+                                   <br>
+
+
+                                   }
+                   </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                            @if(flash.containsKey("Errorcow")){
+                                <div class="alert alert-danger">
+                                    <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                                </div>
+                            }
+
+
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-folder-open"></span> โคขุนหนองแวง
+                        </div>
+                        <div class="panel-body">
+                            <center><b>ค้นหาตามรหัส</b><form method="post" action="two">
+    <input name="search" type="text"><input type="submit" value="ค้นหา">
+</form></center>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>โคขุนหมายเลข</th>
+                    <th>น้ำหนัก</th>
+                    <th>อายุโคขุน</th>
+                    <th>เพศ</th>
+                    <th>นำเข้าโคขุนเมื่อ</th>
+                    <th>สายพันธุ์</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            @for(s <- show){
+
+                <tr class="panel-info"><td>@s.getCow_id</td>
+                <td>@s.getWeight Kg.</td>
+                <td>@s.getAge ปี</td>
+                <td>@s.getSex</td>
+                <td>@s.getDate</td>
+                <td>@s.getBreed.getName</td>
+
+
+
+                <td><img src="/assets/images/Piccow/@s.getPicture" class="img-thumbnail" width="100px" height="auto" ></td>
+               @if(session.get("position")=="Admin") {
+                   <td align="center">
+
+
+                       <a href="/editcow/@s.getCow_id"><button class="btn btn-success">
+                           <span class="glyphicon glyphicon-cog"></span>
+                       </button></a>
+                       <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <button class="btn btn-danger">
+                           <span class="glyphicon glyphicon-trash"></span>
+                       </button></a>
+                       <a href="/detailsCow/@s.getCow_id">  <button class="btn btn-light">
+                           <span class="glyphicon glyphicon-eye-open"></span>
+                       </button></a>
+                   </td>
+                   @if(session.get("position")=="Webmaster"){
+                       <td align="center">
+                           <a href="/editcow/@s.getCow_id"><button class="btn btn-success">
+                               <span class="glyphicon glyphicon-cog"></span>
+                           </button></a>
+                           <a href="/deletecow/@s.getCow_id" onclick="return confirm('Delete')"> <button class="btn btn-danger">
+                               <span class="glyphicon glyphicon-trash"></span>
+                           </button></a>
+                           <a href="/detailsCow/@s.getCow_id">  <button class="btn btn-light">
+                               <span class="glyphicon glyphicon-eye-open"></span>
+                           </button></a>
+                       </td>
+                   }
+               }else{
+                   <div class="alert alert-danger"><strong>สามารถดูข้อมูลได้อย่างเดียว ไม่สามารถทำการเพิ่มลบแก้ไขได้ เนื่องจากท่านยังไม่ได้ทำการ "เข้าสู่ระบบ" ครับ </strong></div>
+               }
+            </tr>}
+            </tbody>
+        </table>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </div>
+    </body>
+</html>
+

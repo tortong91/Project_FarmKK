@@ -1,0 +1,171 @@
+@(myList:List[Recipe],myForm:Form[Recipe],myListFoods:List[Inputfood])
+@import helper._;
+@import java.math.BigInteger; var i=0;
+
+<html>
+    <head>
+        <title>
+            อาหารโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+        <!---->
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                <h2>สูตรอาหารโคขุน</h2>
+                <p style="color: red;">**เป็นขั้นตอนการดูสูตร รายละเอียตรสูตรต่างๆของอาหารโคขุน</p>
+<div class="row">
+    <form action="/inputRecipe" method="post">
+
+    <div class="col-md-5">
+        <table width="100%">
+            <tr>
+                <th>ชื่อสูตร</th>  <td><input type="text" name="rid" class="form-control"></td>
+            </tr>
+         <tr>
+             <th>จำนวนโคขุนที่ต้องใช้สูตร</th><td><input type="text" name="amount" class="form-control"></td>
+            </tr>
+         <tr>
+             <th>ช่วงเวลาใช้สูตร</th>
+             <td>
+                 <input type="radio" name="rdio" value="ช่วงเวลา 1-6 เดือนแรก">ช่วงเวลา 1-6 เดือนแรก<br>
+                 <input type="radio" name="rdio" value="ช่วงเวลา 6-12 เดือนแรก">ช่วงเวลา 6-12 เดือนแรก
+             </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-md-7">
+
+
+
+    @for(s<-myListFoods){
+        <input type="hidden" name="id[@i]" value="@s.getId_ifoods">
+        <table width="90%">
+            <tr>
+
+
+                <td >
+                    @*<input type="checkbox"  name="" value="1">*@
+                     @s.getFood.getAnimalfoods_name()
+                </td>
+                <td WIDTH="500">
+                    <input type="text" name="chk[@i]" placeholder="หน่วย : กิโลกรัม" class="form-control">
+                </td>
+            </tr>
+        </table>
+
+
+        @(i=i+1)
+        <br>
+        }
+            <br>
+            <input type="submit" value="จัดสูตร">
+            <input type="reset" value="reset">
+
+</div>
+    </form>
+
+
+
+
+
+</div></div></div></div>
+
+        <!--หน้าโชว-->
+        <div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading"><span class="glyphicon glyphicon-eye-open"> สูตรอาหาร</span> </div>
+            <div class="panel-body">
+                @if(flash.containsKey("more")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด </strong>&nbsp;flash.get("more").
+                    </div>
+                }
+
+<table class="table">
+    <tr>
+
+        <th>ชื่อสูตร</th>
+        <th>จำนวนโคที่ใช้สูตร</th>
+        <th>รายละเอียดสูตร</th>
+
+    </tr>
+@for(recip<-myList) {
+
+    <tr>
+        <td>
+            @recip.getNameRecip;
+        </td>
+
+        <td>
+            @recip.getAmountCow ตัว
+        </td>
+        <td>
+        @for(dataa <- recip.getDrecipList){
+            @if(dataa.getAmount==0){
+
+            }else{
+                @dataa.getInputfoods.getFood.getAnimalfoods_name จำนวน : @dataa.getAmount Kg. <br>
+            }
+
+        }
+        </td>
+
+        <td>
+
+            <a href="/deleteRecipe/@recip.getNameRecip" onclick="return confirm('Delete')">
+                <button class="btn btn-danger">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+            </a>
+        </td>
+        <td>
+            <table class="table">
+
+                @for(ss <- recip.getDrecipList){
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+
+                }
+            </table>
+        </td>
+
+    </tr>
+
+}
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+    </div>
+</div>
+     <!--\\-->
+
+        </div>
+        </div>
+
+
+
+    </body>
+</html>

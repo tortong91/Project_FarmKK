@@ -1,0 +1,23 @@
+@(myList:List[UserKK])
+<html>
+    <head>
+        <title>
+            OKRegister
+        </title>
+    </head>
+    <body>
+        <table class="table">
+            <tr>
+                    <td>ชื่อ</td>
+                    <td>ผู้ใช้</td>
+                    <td>อนุมัติ</td>
+            </tr>
+            @for(s<-myList){     <tr>
+
+                <td>@s.getName</td>
+                <td>@s.getUser_Name</td>
+                    <td><a href="/editmember/@s.getId">อนุมัติ</a></td>
+            </tr>}
+        </table>
+    </body>
+</html>

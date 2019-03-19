@@ -1,0 +1,104 @@
+@(myShow:List[farmData])
+
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="assets/images/cow.png" type="image/png" rel="icon">
+        <link href="assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+                .nav{
+                    width: 100%;
+                    height : 43px;
+                    background-color: #985f0d;
+
+                }
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+            <div class="row">
+                <div class="nav">
+                    <div style="float: left; padding: 5px 0 0 10px; "><img src="assets/images/cow.png" width="32px"></div>
+                    <div style="float: left; margin-left: 10px; padding: 10px 0 5px 0; color: #faf2cc; font-size: 16px;">&nbsp;ระบบจัดการข้อมูลโคขุนหนองแวง | KKFarm Online Website</div>
+                    <div style="float: right; margin-right: 10px; padding: 10px 0 5px 0;">
+                        <span style="color: darkblue" class="glyphicon">&#xe161;</span><a href="login">Login</a> |  <span style="color: darkblue" class="glyphicon glyphicon-user"></span><a href="login">Register</a></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"><img src="assets/images/Farmheader.png" width="100%"></div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-10">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li class="active">ข้อมูลฟาร์ม</li>
+                        </ol>
+
+                        @for(s <- myShow){
+                            <table border="0" width="500px" align="center">
+                                <tr><th colspan="2">
+                                <table align="right">
+                            <tr><td><a href="editfarm/@s.getFarm_id" style="color: blue;" width="30px">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a></td>&nbsp;
+                                <td><a href="deletfarm/@s.getFarm_id" style="color: blue;" onclick="return confirm('Delete')">
+                                    <span class="glyphicon glyphicon-remove" style="color:red;"></span>
+                                </a> </td></tr>
+                                </table>
+                                </th></tr>
+                                <tr><td colspan="2" width="200px"><center><img src="assets/images/Pic/@s.getPicture" class="img-thumbnail" width="500px" height="auto" align="center" ></center>
+                               <tr><td>เลขที่ฟฟาร์ม</td><td>@s.getFarm_id</td></tr>
+                               <tr><td>ชื่อฟาร์ม</td> <td>@s.getFram_name</td></tr>
+                                <tr><td>ที่อยู่</td><td>@s.getFarm_address</td></tr>
+                                <tr><td>เบอร์โทร</td><td>@s.getFarm_tel</td></tr>
+                                </td>
+                                </tr>
+
+
+                            </table><br><br>
+                        }
+
+
+                    </div>
+                    <div class="col-md-2">@manager();</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12"><footer><span class="glyphicon glyphicon-copyright-mark"></span> Copyright KhokhunFram : KKFarm 2018.<br>
+
+                    </footer></div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </body>
+</html>

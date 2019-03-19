@@ -1,0 +1,52 @@
+@(myShow:List[Agent])
+
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="/">หน้าหลัก</a></li>
+            <li class="active">ข้อมูลตัวแทนจำหน่าย</li>
+        </ol>
+        <a href=" /addagent" style="color: blue;"><span class="glyphicon glyphicon-plus" style="color:black;">&nbsp;เพิ่มตัวแทนจำหน่าย</span></a><br><br>
+        @for(s <- myShow){
+            <table border="0" width="100%" align="center">
+                <tr><th colspan="2">
+                    <table align="right">
+                        <tr><td><a href="/editagent/@s.getAgent_id" style="color: blue;" width="30px">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a></td>&nbsp;
+                            <td><a href="/delet/@s.getAgent_id" style="color: blue;" onclick="return confirm('Delete')">
+                                <span class="glyphicon glyphicon-remove" style="color:red;"></span>
+                            </a> </td></tr>
+                    </table>
+                </th></tr></table><table>
+                <tr><td ROWSPAN="5"><img src="assets/images/Pic/@s.getPicture" class="img-thumbnail" width="100px" height="auto" >
+            <tr><td>@s.getAgent_id</td></tr>
+                <tr> <td>@s.getAgent_name</td></tr>
+                <tr><td>@s.getAgent_address</td></tr>
+                <tr><td>@s.getAgent_tel</td></tr>
+                </td>
+                </tr>
+
+
+            </table>
+        }
+    </div>
+
+</div>
+</div>
+
+    </body>
+</html>

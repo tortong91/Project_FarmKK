@@ -1,0 +1,36 @@
+@(myForm:Form[cooperatives])
+@import helper._;
+
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="row">
+
+            <div class="col-md-11">
+
+                <ol class="breadcrumb">
+                    <li><a href="/">หน้าหลัก</a></li>
+                    <li><a href="showdata">ข้อมูลสหกรณ์</a></li>
+                    <li class="active">แก้ไขสหกรณ์</li>
+                </ol>
+                <h1>แก้ไขข้อมูลสหกรณ์</h1>
+                @if(flash.containsKey("Errorsahakon")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorsahakon").
+                    </div>
+                }
+                <p style="color: red;">**ทำการแก้ไขข้อมูลให้กดที่ปุ่ม "แก้ไขข้อมูล"</p>
+                @helper.form(action = routes.Application.update() ,'enctype->"multipart/form-data"){
+                    @inputText(myForm("name"),'_label->"ชื่อสหกรณ์โคขุน",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                    @textarea(myForm("address"),'_label->"ที่อยู่สหกรณ์โคขุน",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                    @inputText(myForm("tel"),'_label->"เบอร์โทรศัพท์ติดต่อ",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                    @inputFile(myForm("picture"),'_label->"รูปภาพประกอบ" ,'required->"required",'class->"form-control")
+                    <input type="submit" value="แก้ไขข้อมูล" class="btn-success btn-lg">
+                    }
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+
+    </body>
+</html>

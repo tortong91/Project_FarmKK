@@ -1,0 +1,48 @@
+@(myForm:Form[UserKK])
+@import helper._;
+<html>
+    <head>
+        <title>
+            Register
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            .bgs{
+                background-color:white;
+                padding: 20px 20px 20px  20px;
+            }
+        </style>
+    </head>
+    <body style="background-color: silver;">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                <div class="bgs">
+                    <a href="/"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                    <center> <h1 style="color: #2aabd2;">เพิ่มสมาชิก</h1></center>
+                <p style="color:red;">**เพิ่มสมาชิกภายในฟาร์มมีแค่ผู้เป็นเจ้าของฟาร์ามเท่านั้นที่สามารถจัดการเพิ่มสมาชิกได้</p>
+                    @helper.form(action = routes.allController.input() ,'enctype->"multipart/form-data"){
+
+                        @inputText(myForm("name"),'_label->"ชื่อ",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @inputText(myForm("lastname"),'_label->"นามสกุล",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @inputRadioGroup(myForm("position"),options = Seq("Admin"->"Admin","User"->"User"),'_label->"กำหนดสถานะ")
+                        @inputText(myForm("User_Name"),'_label->"ชื่อผู้ใช้",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @inputPassword(myForm("User_Password"),'_label->"รหัสผ่าน",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @textarea(myForm("address"),'_label->"ที่อยู่",'cols->"40",'rols->"10",'class->"form-control")
+                        @inputText(myForm("tel"),'_label->"เบอร์โทรศัพท์",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @inputText(myForm("email"),'_label->"อีเมลย์",'size->"60",'maxlength->"50",'required->"required",'class->"form-control")
+                        @inputText(myForm("age"),'_label->"อายุ",'size->"60",'maxlength->"2",'required->"required",'class->"form-control")
+
+
+                        <center>  <input type="submit" value="สมัครสมาชิก" class="btn-success" class="form-control">
+                        <input type="reset" value="ลบข้อมูล" class="btn-danger" class="form-control"></center>
+                        }</div>
+            </div>
+            <div class="col-md-3" style="background-color: silver;"></div>
+        </div>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,87 @@
+@(myForm:Form[Agent])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="assets/images/cow.png" type="image/png" rel="icon">
+        <link href="assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+                .nav{
+                    width: 100%;
+                    height : 43px;
+                    background-color: #985f0d;
+
+                }
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+            <div class="row">
+                <div class="nav">
+                    <div style="float: left; padding: 5px 0 0 10px; "><img src="assets/images/cow.png" width="32px"></div>
+                    <div style="float: left; margin-left: 10px; padding: 10px 0 5px 0; color: #faf2cc; font-size: 16px;">&nbsp;ระบบจัดการข้อมูลโคขุนหนองแวง | KKFarm Online Website</div>
+                    <div style="float: right; margin-right: 10px; padding: 10px 0 5px 0;">
+                        <span style="color: darkblue" class="glyphicon">&#xe161;</span><a href="login">Login</a> |  <span style="color: darkblue" class="glyphicon glyphicon-user"></span><a href="login">Register</a></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"><img src="assets/images/Farmheader.png" width="100%"></div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="showdata">ข้อมูลตัวแทนจำหน่าย</a></li>
+                            <li class="active">เพิ่มตัวแทนจำหน่าย</li>
+                        </ol>
+                        @helper.form(action = routes.Application.inputagent() ,'enctype->"multipart/form-data"){
+                            @inputText(myForm("agent_name"),'_label->"ชื่อ :",'size->"60",'maxlength->"50",'required->"required")
+                            @textarea(myForm("agent_address"),'_label->"address :",'size->"60",'maxlength->"50",'required->"required")
+                            @inputText(myForm("agent_tel"),'_label->"tel :",'size->"60",'maxlength->"50",'required->"required")
+                            @inputFile(myForm("picture"),'_label->"รูปภาพประกอบ")
+                            <input type="submit" value="บันทึก" class="btn-success">
+                            <input type="reset" value="ลบข้อมูล" class="btn-danger">
+                            }
+                    </div>
+                    <div class="col-md-2">@manager();</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12"><footer><span class="glyphicon glyphicon-copyright-mark"></span> Copyright KhokhunFram : KKFarm 2018.<br>
+
+                    </footer></div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,151 @@
+@(myShow:List[Inputfood],myForm1: Form[Inputfood], myList: List[Foods], myListRecip: List[Recipe])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ข้อมูลการรับอาหาร
+        </title>
+    </head>
+    <body>
+        <div class="row">
+
+            <ol class="breadcrumb">
+                <li><a href="/">หน้าหลัก</a></li>
+                <li><a href="/showinputfoods">ข้อมูลรับอาหาร</a></li>
+                <li class="active">เพิ่มอาหารสัตว์</li>
+
+            </ol>
+            <h1>รับอาหารสัตว์</h1>
+            <p style="color: red;">
+                **เพิ่มข้อมูลนำเข้า / รับอาหารสัตว์ได้ที่แบบฟอร์มนี้ ให้ทำการเพิ่มหลังจากนำเข้าอาหารแล้ว</p>
+            <div class="row">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+
+                    </div>
+                    <div class="panel-body">
+                        @helper.form(action = routes.inputfoodsController.inputmyfoods(), 'enctype -> "multipart/form-data") {
+                            <div class="col-md-6">
+                                @select(myForm1("food.id"), options = myList.map(fac => fac.getId -> fac.getAnimalfoods_name), '_label -> "ชื่ออาหาร",'class->"form-control")
+                                <table width="100%">
+                                    <tr>
+                                        <td>
+                                        @inputText(myForm1("amount_ifoods"), '_label -> "จำนวน", 'placeholder -> "หน่วยเป็นกระสอบ,ถัง,อื่นๆ ",'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                        </td> <td>
+                                    @select(myForm1("unit"),options=Seq("กระสอบ"->"กระสอบ","ถัง"->"ถัง","รถ"->"รถ"), '_label -> "หน่วย", 'class -> "form-control")
+                                    </td>
+                                        <td>
+                                        @inputText(myForm1("amountKg"), '_label -> "น้ำหนัก / 1 หน่วย", 'placeholder -> "หน่วยเป็นกิโลกรัม", 'maxlength -> "50", 'class -> "form-control")
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                            <div class="col-md-6">
+
+                                @inputText(myForm1("price_ifoods"), '_label -> "ราคา / 1 หน่วย", 'placeholder -> "กรอกข้อมูลราคาของอาหาร", 'size -> "60", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                @inputFile(myForm1("picture"), '_label -> "รูปภาพประกอบ", 'class -> "form-control")
+
+                            </div>
+
+                        </div>
+                    <center>
+
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span>
+                            บันทึก</button>
+                        <button type="reset" class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span>
+                            ลบข้อมูล</button>
+
+                    </center>
+                </div>}
+
+            </div>
+
+        </div>
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+
+
+                <h1>ข้อมูลรับอาหาร</h1>
+                <p style="color: red;">**แสดงข้อมูลการรับอาหารเ</p>
+                @if(flash.containsKey("Errorinputfood")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด &nbsp;</strong>@flash.get("Errorinputfood").
+                    </div>
+                }
+                @if(flash.containsKey("data")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด &nbsp;</strong>@flash.get("data").
+                    </div>
+                }
+               <table  align="center" class="table">
+                    <thead>
+                        <tr>
+
+                            <th></th>
+                            <th>ชื่ออาหาร</th>
+                            <th>จำนวน</th>
+                            <th>น้ำหนัก</th>
+                            <th>น้ำหนักรวม</th>
+                            <th>อาหารประเภท</th>
+                            <th>ราคา</th>
+                            <th>ราคารวม</th>
+                            <th>รูปภาพประกอบ</th>
+
+                            <th>จัดการ</th>
+                        </tr>  @for(s <- myShow){
+
+                            <tr>
+                                <td >@s.getId_ifoods</td>
+                                <td >@s.getFood.getAnimalfoods_name</td>
+                                <td >@s.getAmount_ifoods @s.getUnit </td>
+                                <td >@s.getAmountKg Kg. /@s.getUnit </td>
+                                <td >
+                                    @if(s.getTotal>10){
+                                        <font color="red">
+                                            @s.getTotal Kg.
+                                        </font>
+                                    }else{
+                                        @s.getTotal Kg.
+                                    }
+                                    </td>
+                                <td >@s.getFood.getAnimalfoods_type</td>
+                                <td >@s.getPrice_ifoods บาท/@s.getUnit</td>
+                                <td >@s.getTotalPrice บาท</td>
+                                <td><img src="/assets/images/Pic/@s.getPicture" width="100px"> </td>
+                                <td align="center">
+                                    <a href="/editinputfoods/@s.getId_ifoods"><button class="btn btn-secondary">
+                                        <span class="glyphicon glyphicon-plus"></span> รับอาหารเพิ่ม
+                                    </button></a>
+                                    <a href="/deleteinputfoods/@s.getId_ifoods" onclick="return confirm('Delete')">
+                                        <button class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </a>
+
+                                </td>
+                            </tr>
+
+
+                    </thead>
+                    }
+                </table>
+
+            </div>
+        </div>
+</div>
+
+
+
+    </body>
+</html>

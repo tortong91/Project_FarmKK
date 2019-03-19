@@ -1,0 +1,116 @@
+@(myList:List[SaveFoods],myForm:Form[SaveFoods],myListcow:List[Cows],myListRecipe:List[Recipe],myListifood:List[Inputfood])
+@import helper._;
+<html>
+    <head>
+        <title>
+            บันทึกการให้อาหารโคขุน
+        </title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb">
+                    <li><a href="/">หน้าหลัก</a></li>
+                    <li class="active">บันทึกการให้อาหารโคขุน</li>
+                </ol>
+                <h1>บันทึกการให้อาหารโคขุน</h1>
+                <p style="color: red;">**กำหนด วางแผน ว่าโคขุนแต่ละตัวนั้นควรกินอาหารสูตรใหน</p>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                    @helper.form(action = routes.saveKKFarmController.input(), 'enctype -> "multipart/form-data") {
+                        <div class="row">
+                            <div class="col-md-4">
+                        @select(myForm("cowdata.cow_id"),options=myListcow.map(fac=>fac.getCow_id->fac.getCow_id),'class->"form-control",'_label->"เลือกโคขุน")
+
+                            </div>
+
+
+                            <div class="col-md-4">
+                            @select(myForm("recip.nameRecip"),options=myListRecipe.map(fac=>fac.getNameRecip->fac.getNameRecip),'class->"form-control",'_label->"เลือกสูตร")
+                            </div>
+
+
+                        </div>
+<center>
+<button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึกการให้อาหาร</button>
+</center>
+}
+</div>
+</div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                    @if(flash.containsKey("more")){
+                        <div class="alert alert-danger">
+                            <strong>เกิดข้อผิดพลาด &nbsp;</strong>@flash.get("more").
+                        </div>
+                    }
+                        @if(flash.containsKey("datacow")){
+                        <div class="alert alert-danger">
+                            <strong>เกิดข้อผิดพลาด &nbsp;</strong>@flash.get("datacow").
+                        </div>
+                    }
+                    </div>
+                    <div class="panel-body">
+                       <table class="table">
+                           <tr>
+                               <th></th>
+                               <th>โคขุน</th>
+                               <th>สูตรท่ี่ใช้</th>
+                               <th>รายะเอียดสูตรที่ใช้</th>
+                               <th>ปริมาณที่กินต่อวัน</th>
+                               <th>ช่วงเวลาให้อาหาร</th>
+                               <th>วันที่บันทึก</th>
+
+                           </tr>
+                           @for(s<-myList){
+                           <tr>
+                               <td>
+                                   <img src="/assets/images/Piccow/@s.getCowdata.getPicture" class="img-thumbnail" width="80px" height="auto" >
+                               </td>
+
+                               <td>@s.getCowdata.getCow_id</td>
+                               <td>
+                               @s.getRecip.getNameRecip
+
+                               </td>
+                               <td>
+
+
+
+                               </td>
+                               <td>
+
+                                   @s.getMount kg./เดือน<br>
+                                   @s.getRound kg./ครึ่งปี(@s.getRecip.getDateTimeRecipe)<br>
+                               </td>
+                               <td>@s.getRecip.getDateTimeRecipe</td>
+                               <td>@s.getDatesavefood</td>
+
+                               <td>
+
+                                   <a href="/deletesavefood/@s.getId"> <button class="btn btn-danger">
+                                       <span class="glyphicon glyphicon-trash"></span>
+                                   </button></a>
+
+                               </td>
+                           </tr>
+                           }
+                       </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

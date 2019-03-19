@@ -1,0 +1,153 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /teladmin                   controllers.allController.telAdmin()
+GET     /tel                   controllers.allController.tel()
+GET     /                           controllers.allController.index()
+GET     /LoginFarmKK                controllers.allController.Login()
+GET     /Logout                     controllers.allController.Logout()
+
+
+
+
+#database sql ข้อมูลสหกรณ์
+GET     /showdata                   controllers.Application.showdata()
+#GET     /adddata                    controllers.Application.adddata()
+POST    /adddatas                   controllers.Application.inputdata()
+GET     /updatedata/:id             controllers.Application.edit(id:String)
+POST    /update                 controllers.Application.update()
+GET     /delet/:id                  controllers.Application.delet(id:String)
+#GET     /details/:id                controllers.Application.details(id:String)
+
+
+#database sql ข้อมูลอาหารสัตว์
+GET     /showfoods                   controllers.Application.showfoods()
+#GET     /addfoods                    controllers.Application.addfoods()
+POST    /inputfoods                   controllers.Application.inputfoods()
+GET     /editfoods/:id             controllers.Application.editfoods(id:String)
+POST    /updatefoods1                 controllers.Application.updatefoods1()
+GET     /deletefoods/:id                  controllers.Application.deletefoods(id:String)
+#GET     /details/:id                controllers.Application.details(id:String)
+
+#database sql ข้อมูลอาหารสัตว์
+GET     /showagent                   controllers.Application.showagent()
+GET     /addagent                    controllers.Application.addagent()
+POST    /inputgent                   controllers.Application.inputagent()
+GET     /editagent/:id             controllers.Application.editagent(id:String)
+POST    /updateagent                 controllers.Application.updateagent()
+GET     /deleteagent/:id                  controllers.Application.deletagent(id:String)
+#GET     /details/:id                controllers.Application.details(id:String)
+
+#database sql ข้อมูลรับอาหารสัตว์
+GET     /showinputfoods                   controllers.inputfoodsController.showinputfoods()
+GET     /showDatainputfoods                   controllers.inputfoodsController.showinputDatafoods()
+#GET     /addinputfoods                    controllers.inputfoodsController.addinputfoods()
+POST    /inputmyfoods                   controllers.inputfoodsController.inputmyfoods()
+
+POST    /inputfoodseach                   controllers.inputfoodsController.inputfoodseach()
+
+GET     /editinputfoods/:id             controllers.inputfoodsController.editinputfoods(id:String)
+POST    /updateinputfoods                 controllers.inputfoodsController.updateinputfoods()
+GET     /deleteinputfoods/:id                  controllers.inputfoodsController.deleteinputfoods(id:String)
+GET     /seacth                 controllers.inputfoodsController.seacth()
+#GET     /details/:id                controllers.Application.details(id:String)
+
+#database sql ข้อมูลฟาร์ม
+GET     /showfarm                   controllers.farmController.showfarm()
+GET     /addfarm                    controllers.farmController.addfarm()
+POST    /inputfarm                   controllers.farmController.inputfarm()
+GET     /editfarm/:id             controllers.farmController.editfarm(id:String)
+POST    /updatefarm                 controllers.farmController.updatefarm()
+GET     /deletfarm/:id                    controllers.farmController.deletfarm(id:String)
+#GET     /details/:id                controllers.Application.details(id:String)
+
+
+#dbข้อมูลวัคซีน
+GET        /showvac                 controllers.vacController.showvac()
+GET        /edit/:id                     controllers.vacController.edit(id:String)
+GET        /deletevac/:id                 controllers.vacController.delete(id:String)
+#GET        /addvac                 controllers.vacController.add()
+POST        /inputvac               controllers.vacController.input()
+POST        /updatevac               controllers.vacController.update()
+#dbแผนการฉีดวัคซีน
+GET        /showplanvac                 controllers.vacController.showPlanvac()
+GET        /editplanvac/:id                     controllers.vacController.editPlan(id:String)
+GET        /deleteplanvac/:id                 controllers.vacController.deletePlan(id:String)
+#GET        /addvac                 controllers.vacController.add()
+POST        /inputplanvac               controllers.vacController.inputPlan()
+POST        /updateplanvac               controllers.vacController.updatePlan()
+POST        /numseach               controllers.vacController.numseach()
+#dbบันทึกการฉีดวัคซีน
+
+#dbข้อมูลสายพันธุ์โคขุน
+GET        /showbreeds                 controllers.breedController.showBreeds()
+GET        /editbreeds/:id                     controllers.breedController.edit(id:String)
+GET        /deletebreeds/:id                 controllers.breedController.delete(id:String)
+#GET        /addbreeds                 controllers.breedController.add()
+POST        /inputbreeds               controllers.breedController.input()
+POST        /updatebreeds               controllers.breedController.update()
+
+#dbข้อมูลสายพันธุ์โคขุน
+GET        /showinputcow                         controllers.inputCowController.show()
+GET        /editinputcow/:id                     controllers.inputCowController.edit(id:String)
+GET        /deleteinputcow/:id                   controllers.inputCowController.delete(id:String)
+GET        /addinputcow                          controllers.inputCowController.add()
+POST        /inputaddcow                         controllers.inputCowController.input()
+POST        /updateinputcow                      controllers.inputCowController.update()
+
+#dbข้อมูลโคขุน
+GET        /showcow                 controllers.cowkhunController.showcow()
+GET        /showcowdata                 controllers.cowkhunController.showcowdata()
+#GET        /check/:id                 controllers.cowkhunController.check(id:String)
+GET        /editcow/:id                     controllers.cowkhunController.edit(id:String)
+GET        /deletecow/:id                 controllers.cowkhunController.delete(id:String)
+#GET        /addcow                 controllers.cowkhunController.add()
+GET        /detailsCow/:id                 controllers.cowkhunController.detailsCow(id:String)
+GET        /detailsCowPrint/:id                 controllers.cowkhunController.detailsCowPrint(id:String)
+POST        /inputcow               controllers.cowkhunController.input()
+POST        /updatecow               controllers.cowkhunController.update()
+POST     /two                       controllers.cowkhunController.two()
+
+GET        /showcow1                 controllers.cowkhunController.showcow1()
+GET        /editcow1/:id                     controllers.cowkhunController.edit1(id:String)
+POST        /updatecow1               controllers.cowkhunController.update1()
+
+
+#db ตารางสูตรการใช้งาน
+GET        /showRecipe                 controllers.RecipeController.showRecipe()
+#GET        /edit/:id                     controllers.recipeController.edit(id:String)
+GET        /deleteRecipe/:id                 controllers.RecipeController.delete(id:String)
+#GET        /addRecipe                 controllers.RecipeController.add()
+POST        /inputRecipe               controllers.RecipeController.input()
+#POST        /updateRecipe               controllers.recipeController.update()
+
+GET        /showrecipe111                 controllers.inputfoodsController.showrecipe()
+POST        /inputrecipe                 controllers.inputfoodsController.inputrecipe()
+
+
+#Login
+POST        /submitLogin                controllers.allController.loginkk()
+#GET         /admin                      controllers.allController.admin()
+
+#Register
+GET        /inputmember                controllers.allController.inputmember()
+GET        /showmember                controllers.allController.showmember()
+GET        /showmemberOK                controllers.allController.showmemberOK()
+GET        /addmember                controllers.allController.add()
+POST        /inputmember               controllers.allController.input()
+
+#บันทึกการให้อาหาร
+GET         /savefoods                  controllers.saveKKFarmController.showsaveFood()
+GET        /editsavefood/:id                     controllers.saveKKFarmController.edit(id:String)
+GET        /deletesavefood/:id                   controllers.saveKKFarmController.delete(id:String)
+POST        /inputsavefood                         controllers.saveKKFarmController.input()
+POST        /updatesavefood                   controllers.saveKKFarmController.update()
+POST        /savefoodseach                   controllers.saveKKFarmController.savefoodseach()
+
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)

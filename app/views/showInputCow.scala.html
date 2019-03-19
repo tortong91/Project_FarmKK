@@ -1,0 +1,48 @@
+@(myShow:List[InputCow])
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลวัคซีน
+        </title>
+
+    </head>
+    <body style="margin: 0 auto;">
+
+
+        <ol class="breadcrumb">
+            <li><a href="/">หน้าหลัก</a></li>
+            <li class="active">ข้อมูลรับโคขุน</li>
+        </ol>
+
+        <h1> รับโคขุน</h1>
+        <p style="color: red;">**รับโคขุน</p>
+        <center><table  align="center" class="table">
+            <thead>
+                <tr>
+
+                    <th>เลขที่ใบรับ</th>
+                    <th>วันที่รับ</th>
+                    <th>ยืนยัน</th>
+
+                    <th width="100px">จัดการ</th>
+                </tr>  @for(s <- myShow){
+                <tr>
+                    <td >@s.getId</td>
+                    <td >@s.getDate</td>
+                    <td >@s.getConfirm</td>
+
+                    <td align="center">
+                        <a href="/editinputcow/@s.getId"><span class="glyphicon glyphicon-pencil" style="color: #5e5e5e;"></span></a>
+                        <a href="/deleteinputcow/@s.getId" onclick="return confirm('Delete')"> <span class="glyphicon glyphicon-remove" style="color: #c12e2a;"></span></a>
+                    </td>
+                </tr>
+            </thead>
+            }
+        </table>
+        </center>
+
+
+
+
+    </body>
+</html>

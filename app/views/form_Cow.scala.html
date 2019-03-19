@@ -1,0 +1,101 @@
+
+@(myForm:Form[Cows],myList:List[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+
+                <div class="row">
+
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showcow">ข้อมูลโคขุน</a></li>
+                            <li class="active">รับโคขุน</li>
+                        </ol>
+                        <h1>รับโคขุนเข้าฟาร์ม</h1>
+                        <p style="color: red;">**เป็นการที่เจ้าของฟาร์มใช้กรอกข้อมูลโคขุนที่ได้ซื้อโคขุนเข้ามาภายในฟาร์ม กรอกแล้วข้อมูลจะส่งไปที่ข้อมูลพื้นฐานในส่วนของ "ข้อมูลโคขุน" ครับ</p>
+                        @if(flash.containsKey("Errorcow")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                            </div>
+                        }
+
+                </div>
+                        @helper.form(action = routes.cowkhunController.input() ,'enctype->"multipart/form-data"){
+                            <div class="row">
+                                <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                        <span class="glyphicon glyphicon-plus"></span>  Form Add
+                                    </div>
+                                    <div class="panel-body">
+                                <div class="col-md-6">
+
+                                    @select(myForm("breed.id"),options=myList.map(fac=>fac.getId->fac.getName),'class->"form-control",'_label->"สายพันธุ์")
+
+                                    @inputText(myForm("weight"),'_label->"น้ำหนัก(กิโลกรัม)",'size->"10",'maxlength->"3",'required->"required",'class->"form-control" ,'placeholder->"น้ำหนัก (กิโลกรัม)")
+                                    @inputText(myForm("height"),'_label->"ส่วนสูง(เซนติเมตร)",'size->"10",'maxlength->"3",'required->"required",'class->"form-control",'placeholder->"ส่วนสูง (เซนติเมตร)")
+
+
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    @inputText(myForm("age"),'_label->"อายุ(ปี)",'size->"10",'maxlength->"2",'required->"required",'class->"form-control",'placeholder->"อายุ")
+
+                                    @inputRadioGroup(myForm("sex"),options = Seq("ตัวผู้"->"ตัวผู้","ตัวเมีย"->"ตัวเมีย"),'_label->"เพศ")
+                                    @inputText(myForm("color"),'_label->"ลักษณะสี",'class->"form-control")
+
+
+                                    @inputFile(myForm("picture"),'_label->"รูปภาพ",'class->"form-control")
+
+                                </div>
+                            </div><br>
+                                    <center>
+
+                                        <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                                        <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                                    </center>
+                            <br>
+
+
+                            }
+                    </div>
+                </div>
+        </div>
+
+    </body>
+</html>

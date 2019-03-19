@@ -1,0 +1,60 @@
+@(myForm1:Form[Inputfood],myList:List[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>รับอาหาร</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+
+                    </div>
+                    <div class="panel-body">
+
+                <div class="col-md-8">
+                    <ol class="breadcrumb">
+                        <li><a href="/">หน้าหลัก</a></li>
+                        <li><a href="/showfoods">ข้อมูลอาหารสัตว์</a></li>
+                        <li class="active">เพิ่มอาหารสัตว์</li>
+
+                    </ol><table align="center">
+                    <h1>รับอาหารสัตว์เพิ่ม</h1>
+                    <p style="color: red;">**เพิ่มข้อมูลนำเข้า / รับอาหารสัตว์ได้ที่แบบฟอร์มนี้ ให้ทำการเพิ่มหลังจากนำเข้าอาหารแล้ว</p>
+                    @helper.form(action = routes.inputfoodsController.updateinputfoods() ,'enctype->"multipart/form-data"){
+                        <div class="col-md-6">
+                            @inputText(myForm1("id_ifoods"), '_label -> "หมายเลขอาหาร", 'size -> "60", 'placeholder -> "หมายเลขของอาหาร", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                            @select(myForm1("inputfoods.id"), options = myList.map(fac => fac.getId -> fac.getAnimalfoods_name), '_label -> "เลือกประเภทของอาหาร",'class->"form-control")
+                            @inputText(myForm1("name_ifoods"), '_label -> "ชื่ออาหาร", 'placeholder -> "กรอกข้อมูลชื่ออาหาร", 'size -> "60", 'maxlength -> "50",  'class -> "form-control")
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                    @inputText(myForm1("amount_ifoods"), '_label -> "จำนวน", 'placeholder -> "หน่วยเป็นกระสอบ,ถัง,อื่นๆ ",'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                                    </td> <td>
+                                @select(myForm1("unit"),options=Seq("กระสอบ"->"กระสอบ","ถัง"->"ถัง","รถ"->"รถ"), '_label -> "หน่วย", 'class -> "form-control")
+                                </td>
+                                    <td>
+                                    @inputText(myForm1("amountKg"), '_label -> "น้ำหนัก / 1 หน่วย", 'placeholder -> "หน่วยเป็นกิโลกรัม", 'maxlength -> "50", 'class -> "form-control")
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div class="col-md-6">
+                            @inputText(myForm1("price_ifoods"), '_label -> "ราคา / 1 หน่วย", 'placeholder -> "กรอกข้อมูลราคาของอาหาร", 'size -> "60", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                            @inputFile(myForm1("picture"), '_label -> "รูปภาพประกอบ", 'class -> "form-control")
+                            <center><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span>
+                                รับอาหารเพิ่ม</button></center>
+                        </div>
+
+                        }</table>
+
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </body>
+</html>

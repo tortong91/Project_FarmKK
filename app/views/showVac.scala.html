@@ -1,0 +1,140 @@
+@(show: List[Vacs],myForm:Form[Vacs])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลวัคซีน
+        </title>
+
+    </head>
+    <body style="margin: 0 auto;" >
+    <div class="container">
+        <!---->
+@if(session.get("position")=="Admin"){
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+
+                    <ol class="breadcrumb">
+                    <li><a href="/">หน้าหลัก</a></li>
+                    <li class="active">ข้อมูลวัคซีน</li>
+                </ol>
+                <h1>ข้อมูลวัคซีน</h1>
+                <p style="color: red;">**กรอกข้อมูลนำเข้าวัคซีน</p>
+
+                @helper.form(action = routes.vacController.input() ,'enctype->"multipart/form-data"){
+                    <div class="row">
+                   <div class="col-md-12">
+                   @inputText(myForm("name"),'_label->"ชื่อวัคซีน",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control",'placeholder->"กรอกชื่อยา")
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                        @textarea(myForm("pr"),'_label->"สรรพคุณทางยา",'size->"210",'maxlength->"200",'required->"required",'class->"form-control",'placeholder->"กรอกสรรพคุณที่ได้จากวัคซีน")
+
+                        </div>
+
+                   <div class="col-md-12">
+                   @inputFile(myForm("picture"),'_label->"รูปภาพประกอบ",'class->"form-control")
+                        </div>
+                </div>
+
+
+
+
+
+                    <center>
+
+                        <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                        <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                    </center>
+                    }
+                </div>
+        </div>
+            </div>
+        </div>
+}else{
+
+}
+        <!--\\-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                    @if(flash.containsKey("Errorvac")){
+                        <div class="alert alert-danger">
+                            <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorvac").
+                        </div>
+                    }
+                    </div>
+                    <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>หมายเลขวัคซีน</th>
+                            <th>ชื่อวัคซีน</th>
+                            <th>สรรพคุณทางยา</th>
+                            <th>รูปภาพประกอบ</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(s <- show) {
+                        <tr>
+                            <td>@s.getId</td>
+                            <td>@s.getName</td>
+                            <td>@s.getPr</td>
+                            <td>
+                                <img src="/assets/images/PicVac/@s.getPicture" width="100px">
+
+                            </td>
+                            @if(session.get("position")=="Admin"){
+                                <td>
+                                    <a href="/edit/@s.getId">
+                                        <button class="btn btn-success"><span class="glyphicon glyphicon-cog"></span></button>
+                                    </a>
+                                    <a href="/deletevac/@s.getId" onclick="return confirm('Delete')">
+                                        <button class="btn btn-danger">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </a>
+
+
+                                </td>
+                                @if(session.get("position")=="User"){
+                                    <td>
+                                        <a href="/edit/@s.getId">
+                                            <button class="btn btn-success"><span class="glyphicon glyphicon-cog"></span></button>
+                                        </a>
+                                        <a href="/deletevac/@s.getId" onclick="return confirm('Delete')">
+                                            <button class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </a>
+
+
+                                    </td>
+                                }else{
+
+                                }
+                            }
+
+                        </tr>
+                    }
+            </tbody>
+            </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+    </body>
+
+</html>
+

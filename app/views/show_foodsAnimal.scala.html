@@ -1,0 +1,115 @@
+@(myShow1:List[Foods],myForm1:Form[Foods])
+@import helper._;
+<html>
+    <head>
+       <title> ข้อมูลอาหารสัตว์</title>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+            <!---->
+            @if(session.get("position")=="Admin"){
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">
+                            <ol class="breadcrumb">
+                                <li><a href="/">หน้าหลัก</a></li>
+                                <li class="active">ประเภทอาหารสัตว์</li>
+
+                            </ol><table align="center">
+                            <h1>ประเภทอาหารสัตว์</h1>
+                            <p style="color: red;">**ข้อมูลประเภทของอาหารสัตร์</p>
+                            @helper.form(action = routes.Application.inputfoods() ,'enctype->"multipart/form-data"){
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                    @inputText(myForm1("Animalfoods_name"),'_label->"ชื่ออาหาร ",'placeholder->"ชื่ออาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+
+                                    </div>
+                                    <div class="col-md-6">
+                                    @inputText(myForm1("Animalfoods_type"),'_label->"ประเภทอาหารสัตว์ ",'placeholder->"ประเภทอาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+
+                                    </div>
+                                </div>
+                                <center>
+
+                                    <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                                    <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                                </center>
+                            }</table>
+
+                        </div>
+                    </div>
+
+                        </div>
+                    </div>
+            }else{
+
+            }
+            <!--\\-->
+            <div class="row">
+                <div class="col-md-12">
+     <div class="panel panel-success">
+         <div class="panel-heading">
+             <span class="glyphicon glyphicon-folder-open"></span> ประเภทอาหารสัตว์
+         </div>
+         @if(flash.containsKey("Error")){
+             <div class="alert alert-danger">
+                 <strong>เกิดข้อผิดพลาด</strong>@flash.get("Error").
+             </div>
+         }
+         <div class="panel-body">
+             <table class="table">
+                 <thead>
+                     <tr>
+                         <th>รหัสประเภท</th>
+                         <th>ชื่ออาหาร</th>
+                         <th>ประเภทอาหาร</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                 @for(s <- myShow1){
+                     <tr>
+                         <td>@s.getId</td>
+                         <td>@s.getAnimalfoods_name</td>
+                         <td>@s.getAnimalfoods_type</td>
+                         @if(session.get("position")=="Admin") {
+                             <td>
+                                 <a href="/editfoods/@s.getId" style="color: blue;" width="30px">
+                                     <button class="btn btn-success"><span class="glyphicon glyphicon-cog"></span></button>
+
+                                 </a>
+
+                                 <a href="/deletefoods/@s.getId" style="color: blue;" onclick="return confirm('Delete')">
+                                     <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                     </a>
+                             </td>
+                             @if(session.get("position") == "Webmaster") {
+                                 <td>
+                                     <a href="/editfoods/@s.getId" style="color: blue;" width="30px">
+                                         <button class="btn btn-success"><span class="glyphicon glyphicon-cog"></span></button>
+
+                                     </a>
+
+                                     <a href="/deletefoods/@s.getId" style="color: blue;" onclick="return confirm('Delete')">
+                                         <button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+                                     </a>    </td>}
+                         } else {
+
+                         }
+                     </tr>
+                 }
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+                </div>
+            </div>
+
+                    </div>
+
+    </body>
+</html>

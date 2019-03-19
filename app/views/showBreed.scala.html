@@ -1,0 +1,117 @@
+@(show: List[breeds], myForm: Form[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลวัคซีน
+        </title>
+
+    </head>
+    <body style="margin: 0 auto;">
+            <!---->
+@if(session.get("position")=="Admin") {
+    <div class="row">
+
+        <div class="col-md-11">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <ol class="breadcrumb">
+                        <li><a href="/">หน้าหลัก</a></li>
+                        <li class="active">ข้อมูลสายพันธุ์โคขุน</li>
+                    </ol>
+                    <H1>สายพันธุ์โคขุน</H1>
+                    <p style="color: red;">
+                        **เพิ่มสายพันธ์ุโคขุน เพื่อที่ฟอร์ม "รับโคขุน" จะได้มีข้อมูลสายพันธุ์ ไว้เพิ่มข้อมูลลงในฐานข้อมูลของข้อมูลโคขุนได้</p>
+
+                    @helper.form(action = routes.breedController.input(), 'enctype -> "multipart/form-data") {
+                        @inputText(myForm("name"), '_label -> "ชื่อสายพันธุ์ ", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                        <center>
+
+                            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span>
+                                บันทึก</button>
+                            <button type="reset" class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span>
+                                ลบข้อมูล</button>
+
+                        </center>
+                    }
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+}else{
+
+}
+            <!---->
+
+        <div class="row">
+            <div class="col-md-11">
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-folder-open"> สายพันธุ์โคขุน</span>
+                    </div>
+                    @if(flash.containsKey("Errorbreeds")){
+                        <div class="alert alert-danger">
+                            <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorbreeds").
+                        </div>
+                    }
+                    <div class="panel-body">
+                        <center><table align="center" class="table">
+                            <thead>
+                                <tr>
+
+                                    <th>รหัสสายพันธุ์</th>
+                                    <th>ชื่อสายพันธุ์</th>
+                                </tr>  @for(s <- show) {
+                                <tr>
+                                    <td >@s.getId</td>
+                                    <td >@s.getName</td>
+
+                                    <td align="center">
+                                    @if(session.get("position") == "Admin") {
+
+
+                                        <a href="/editbreeds/@s.getId"><button class="btn btn-success">
+                                            <span class="glyphicon glyphicon-cog"></span>
+                                        </button></a>
+                                        <a href="/deletebreeds/@s.getId" onclick="return confirm('Delete')">
+                                            <button class="btn btn-danger">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </a>
+                                    } else {
+                                        @if(session.get("position") == "Webmaster") {
+                                            <a href="/editbreeds/@s.getId"><button class="btn btn-success">
+                                                <span class="glyphicon glyphicon-cog"></span>
+                                            </button></a>
+                                            <a href="/deletebreeds/@s.getId" onclick="return confirm('Delete')">
+                                                <button class="btn btn-danger">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </a>
+                                        } else {
+
+                                        }
+                                    }
+                                    </td>
+                                </tr>
+                            </thead>
+                            }
+                        </table>
+                        </center>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </body>
+</html>

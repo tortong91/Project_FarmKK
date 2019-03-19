@@ -1,0 +1,79 @@
+@(myForm:Form[InputCow],listCow:List[Cows])
+    @import helper._;
+    <html>
+        <head>
+            <title>
+            ระบบจัดการข้อมูลโคขุน
+            </title>
+            <link href="assets/images/cow.png" type="image/png" rel="icon">
+            <link href="assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+            <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+        </head>
+        <body style="margin: 0 auto;">
+
+            <div class="container">
+
+
+                <div class="row">
+
+                    <div class="col-md-11">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showbreeds">ข้อมูลโคขุน</a></li>
+                            <li class="active">รับโคขุน</li>
+                        </ol>
+                        <p style="color:red;">**รับโคขุน</p>
+                        @if(flash.containsKey("Errorbreeds")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorbreeds")
+                            </div>
+                        }
+                        @helper.form(action = routes.inputCowController.input() ,'enctype->"multipart/form-data"){
+                            @select(myForm("inputcow.id") ,options=listCow.map(fac=>fac.getCow_id->fac.getCow_id),'_label->"ข้อมูลโคขุน")
+                            @inputText(myForm("id"),'_label->"เลขที่ใบรับ",'maxlength->"50",'required->"required",'class->"form-control")
+                            @inputDate(myForm("date"),'_label->"วันที่รับ",'maxlength->"50",'required->"required",'class->"form-control")
+                            @checkbox(myForm("confirm"),'_label->"Confirm")
+
+
+                            <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                            <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                            }
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+            </div>
+
+
+
+
+            </div>
+        </body>
+    </html>

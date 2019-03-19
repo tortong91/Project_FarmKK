@@ -1,0 +1,82 @@
+@(myForm: Form[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="assets/images/cow.png" type="image/png" rel="icon">
+        <link href="assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header {
+
+                    background-color: #1b6d85;
+                }
+
+                a {
+                    color: white;
+                }
+
+                footer {
+                    height: 40px;
+                    background-color: #222222;
+                    color: #faf2cc;
+                    padding: 10px;
+
+                }
+
+                li a {
+                    color: #204d74;
+                }
+
+                h3 {
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+
+
+            <div class="row">
+
+                <div class="col-md-11">
+                    <ol class="breadcrumb">
+                        <li><a href="/">หน้าหลัก</a></li>
+                        <li><a href="/showbreeds>ข้อมูลสายพันธุ์โคขุน"></a></li>
+                        <li class="active">เพิ่มสายพันธุ์โคขุน</li>
+                    </ol>
+                    <H1>ข้อมูลสายพันธุ์โคขุน</H1>
+                    <p style="color: red;">
+                        **เพิ่มสายพันธ์ุโคขุน เพื่อที่ฟอร์ม "รับโคขุน" จะได้มีข้อมูลสายพันธุ์ ไว้เพิ่มข้อมูลลงในฐานข้อมูลของข้อมูลโคขุนได้</p>
+                    @if(flash.containsKey("Errorbreeds")) {
+                        <div class="alert alert-danger">
+                            <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorbreeds")
+                        </div>
+                    }
+                    @helper.form(action = routes.breedController.input(), 'enctype -> "multipart/form-data") {
+                        @inputText(myForm("id"), '_label -> "รหัสสายพันธุ์", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                        @inputText(myForm("name"), '_label -> "ชื่อสายพันธุ์ ", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+
+                        @inputFile(myForm("picture"), '_label -> "ภาพตัวอย่างสายพันธุ์", 'class -> "form-control")
+                        <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                        <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                        }
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        </div>
+
+
+        </div>
+    </body>
+</html>

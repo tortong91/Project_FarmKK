@@ -1,0 +1,58 @@
+@(showList:List[Inputfood],myForm:Form[Inputfood])
+@import helper._;
+<html>
+    <head>
+        <title>
+            จัดสูตรการให้อาหาร
+        </title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <th>ชื่ออาหาร</th>
+                        <th>จำนวน</th>
+                        <th></th>
+                    </tr>
+                    <tr><th>&nbsp;</th>
+                        <th>  @helper.form(action = routes.inputfoodsController.inputrecipe(), 'enctype -> "multipart/form-data") {
+                            @inputText(myForm("name_recipe"), '_label -> "ชื่อสูตร", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")</th>
+                        <th>&nbsp;</th></tr>
+                    @for(s<-showList){
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>@s.getAmount_ifoods</td>
+                            <td>
+                            @inputText(myForm("amount_recipe"), '_label -> "จำนวนกิโลกรัม", 'maxlength -> "50", 'required -> "required", 'class -> "form-control")
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+
+                            @inputDate(myForm("date_recipe"), '_label -> "วันที่ ", 'class -> "form-control")
+                            <center>
+
+                                <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                                <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                            </center>
+                        }
+                    </div>
+        </div>
+
+
+
+
+
+    </body>
+</html>

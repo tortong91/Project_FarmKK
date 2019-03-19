@@ -1,0 +1,63 @@
+@(show:Cows)
+<html>
+    <head>
+        <title>ข้อมูลโคขุน</title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            body{
+                margin: 100px;
+            }
+        </style>
+    </head>
+    <body onload="window.print()">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <center><h3>ข้อมูลประจำตัวโคขุน</h3></center>
+                <center><h5>FARM KOKHUNNONGWANG.</h5>
+
+                    <br>
+                    <table  align="center" width="100%">
+
+                        <tr><th colspan="2" align="center">รูปภาพประจำตัวโคขุน</th></tr><hr size="100%">
+                        <tr><td colspan="2"><center><img src="/assets/images/Piccow/@show.getPicture" class="img-thumbnail" width="200px" height="auto" align="center" >
+                            <center>ภาพ @show.getCow_id</center>
+
+                        </center><br><br></td></tr>
+                        <tr><th colspan="2">ข้อมูลพื้นฐาน</th></tr>
+                        <tr><td colspan="2">
+                            <hr size="100%">
+                            <table align="center" class="table">
+                                <tr>
+                                    <th width="200">รหัสประจำตัวโค</th> <td>@show.getCow_id</td>
+                                </tr>
+                                <tr>
+                                    <th>เพศ</th><td> @show.getSex</td>
+                                </tr>
+                                <tr>
+                                    <th>รหัสประจำตัวโค</th><td>@show.getWeight</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนสูง</th><td>@show.getHeight</td>
+                                </tr>
+                                <tr>
+                                    <th>ลักษณะสีผิว</th><td>@show.getColor</td>
+                                </tr>
+                            </table>
+
+
+
+
+                        </td></tr>
+
+
+                    </table>
+
+
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,132 @@
+@(myShow: List[cooperatives], myForm: Form[cooperatives])
+    @import helper._;
+    <html>
+        <head>
+            <title>
+            ระบบจัดการข้อมูลโคขุน
+            </title>
+            <link href="/assets/images/cow.png" type="image/png" rel="icon">
+            <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        </head>
+        <body>
+            <div style="margin: 0 auto;">
+                <div class="container">
+
+                        <!---->
+@if(session.get("position")=="Admin"){
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                    <ol class="breadcrumb">
+                                        <li><a href="/">หน้าหลัก</a></li>
+                                        <li class="active">ข้อมูลสหกรณ์</li>
+                                    </ol>
+
+
+                                    <h1>ข้อมูลสหกรณ์</h1>
+                                    @if(flash.containsKey("Errorsahakon")) {
+                                        <div class="alert alert-danger">
+                                            <strong>เกิดข้อผิดพลาด</strong>@flash.get("Errorsahakon").
+                                        </div>
+                                    }
+                                    <p style="color: red;">**สหกรณ์ ผู้ที่ทำการซื้อขายกับทางฟาร์าม</p>
+                                    @helper.form(action = routes.Application.inputdata(), 'enctype -> "multipart/form-data") {
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                @inputText(myForm("name"), '_label -> "ชื่อสหกรณ์", 'size -> "60", 'maxlength -> "50", 'required -> "required", 'class -> "form-control", 'placeholder -> "กรอกชื่อสหกรณ์")
+                                                @inputText(myForm("tel"), '_label -> "เบอร์โทรศัพท์ติดต่อ", 'size -> "60",'maxlength -> "10", 'required -> "required", 'class -> "form-control", 'placeholder -> "เบอร์โทรที่สามารถติดต่อได้")
+                                                @inputFile(myForm("picture"), '_label -> "รูปภาพประกอบ", 'required -> "required", 'class -> "form-control")
+                                            </div>
+                                            <div class="col-md-6">
+                                            @textarea(myForm("address"), '_label -> "ที่อยู่สหกรณ์", 'rows -> "9", 'required -> "required", 'class -> "form-control", 'placeholder -> "กรอกที่อยู่ของสหกรณ์")
+
+                                            </div>
+                                        </div>
+                                        <center>
+
+                                            <button type="submit"  class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"></span> บันทึก</button>
+                                            <button type="reset"  class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span> ลบข้อมูล</button>
+
+                                        </center>
+                                        }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+}else{
+
+}
+                        <!---->
+
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">  <span class="glyphicon glyphicon-folder-open"></span> ข้อมูลสหกรณ์</div>
+                                        <div class="panel-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr> <th>ลำดับ</th>
+                                                <th>ชื่อสหกรณ์</th>
+
+                                                <th>ที่อยู่ของสหกรณ์</th>
+                                                <th>เบอร์โทรศัพท์ที่ใช้ติดต่อ</th>
+                                                <th>ภาพสหกรณ์</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @for(s <- myShow) {
+                                            <tr>
+                                                <td>@s.getId</td>
+                                                <td>@s.getName</td>
+                                                <td>@s.getAddress</td>
+                                                <td>@s.getTel</td>
+                                                <td><img src="/assets/images/Pic/@s.getPicture" width="100px;"></td>
+                                                @if(session.get("position") == "Admin") {
+                                                    <td>
+                                                        <a href="/updatedata/@s.getId" style="color: blue;" width="30px">
+                                                            <button class="btn btn-success">
+                                                                <span class="glyphicon glyphicon-cog"></span></button></a>
+
+                                                        <a href="/delet/@s.getId" style="color: blue;" onclick="return confirm('Delete')">
+                                                            <button class="btn btn-danger">
+                                                                <span class="glyphicon glyphicon-trash"></span></button>
+                                                        </a>
+                                                    </td>
+                                                } else {
+                                                    @if(session.get("position") == "Webmaster") {
+                                                        <a href="/updatedata/@s.getId" style="color: blue;" width="30px">
+                                                            <span class="glyphicon glyphicon-edit"></span></a>
+
+                                                        <a href="/delet/@s.getId" style="color: blue;" onclick="return confirm('Delete')">
+                                                            <span class="glyphicon glyphicon-remove" style="color: red;"></span></a>
+                                                    } else {
+
+                                                    }
+                                                }
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                </div>
+
+
+        </body>
+    </html>
+

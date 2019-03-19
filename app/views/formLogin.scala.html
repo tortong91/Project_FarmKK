@@ -1,0 +1,102 @@
+@(myList:List[UserKK])
+<!--<html>
+    <head>
+        <title>Login : เข้าสู่ระบบฟาร์มโคขุนหนองแวง</title>
+    </head>
+    <body style="background: #1b6d85;">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="panel panel-default" style="width: 80%;">
+                <div class="panel-heading">
+                    <center> <h1 style="color: #2aabd2;">เข้าสู่ระบบ</h1></center>
+                    <p style="color:red;">**เข้าสู่ระบบเพื่อเข้ามาทำการจัดการข้อมูลโดยเจ้าของฟาร์มเท่านั้น</p>
+                </div>
+                <div class="panel-body">
+
+                    <form action="/submitLogin" method="post">
+                        <div class="form-group">
+                            <label for="text">Username:</label>
+                            <input type="text" class="form-control" name="user">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" name="pass">
+                        </div>
+                        <div class="checkbox">
+                            <label><input type="checkbox"> Remember me</label>
+                        </div>
+                        <input type="submit" value="lOGIN" class="btn btn-default">
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
+-->
+<html>
+    <head>
+        <title>
+            FarmKK.
+        </title>
+        <style type="text/css">
+                body{
+
+                    width:100%;
+                    height:100%;
+                    background-repeat: repeat-x;
+                }
+                .login-form{
+                    width: 450px;
+                    margin: 0 auto;
+
+
+                }
+                .login{
+                    width: 450px;
+                    margin: 0 auto;
+
+
+                }
+        </style>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><br><br><br>
+
+
+
+                  <div class="login">  <center><img src="assets/images/login01.png"></center></div>
+        <div class="login-form">
+            <form action="/submitLogin" method="post">
+
+
+                  <input type="text" class="form-control" size="90%" name="user" placeholder="กรอกชื่อผู้ใช้">
+
+
+                 <input type="password" class="form-control" size="90%" name="pass" placeholder="กรอกรหัสผ่าน">
+
+                    <input type="submit" value="เข้าสู่ระบบ" class="form-control btn-success">
+
+
+        </form>
+        </div>
+    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+    </body>
+</html>

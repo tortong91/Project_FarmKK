@@ -1,0 +1,78 @@
+@(myForm1:Form[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+        @if(flash.containsKey("Error")){
+        <div class="alert alert-danger">
+            <strong>เกิดข้อผิดพลาด</strong>@flash.get("Error").
+        </div>
+    }
+
+        <div class="container">
+            <div class="row">
+
+
+                    <div class="col-md-8">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showfoods">ข้อมูลอาหารสัตว์</a></li>
+                            <li class="active">เพิ่มอาหารสัตว์</li>
+
+                        </ol><table align="center">
+                        <h1>รับอาหารสัตว์</h1>
+                        <p style="color: red;">**เพิ่มข้อมูลนำเข้า / รับอาหารสัตว์ได้ที่แบบฟอร์มนี้ ให้ทำการเพิ่มหลังจากนำเข้าอาหารแล้ว</p>
+                        @helper.form(action = routes.Application.inputfoods() ,'enctype->"multipart/form-data"){
+                            <div class="row">
+                                <div class="col-md-4">
+                                @inputText(myForm1("id"),'_label->"รหัสชนิด",'size->"60",'placeholder->"กรอกรหัส",'maxlength->"50",'required->"required",'class->"form-control")
+
+                                </div>
+                                <div class="col-md-4">
+                                @inputText(myForm1("Animalfoods_name"),'_label->"ชื่ออาหารสัตว์ ",'placeholder->"ชื่ออาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+
+                                </div>
+                                <div class="col-md-4">
+                                @inputText(myForm1("Animalfoods_type"),'_label->"ชื่อประเภทอาหารสัตว์ ",'placeholder->"ประเภทอาหาร",'size->"60",'maxlength->"50",'required->"required" ,'class->"form-control")
+
+                                </div>
+                            </div>
+                            <input type="submit" value="บันทึก" class="btn-success btn-lg">
+                            <input type="reset" value="ลบข้อมูล" class="btn-danger btn-lg">
+                            }</table>
+
+                    </div>
+</div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,808 @@
+@(content:Html,myList:List[UserKK])
+
+@if(session.get("position")=="Admin"){
+    <!--/////////////////////////////////////////////////////////////////-->
+    <html>
+        <head>
+            <title>
+                ระบบจัดการข้อมูลโคขุน
+            </title>
+            <link href="/assets/images/cow.png" type="image/png" rel="icon">
+            <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+            <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <style type="text/css">
+
+                    .header{
+
+                        background-color: #1b6d85;
+                    }
+
+                    footer{
+                        height: 40px;
+                        width: 100%;
+                        background-color: #222222; color: #faf2cc;
+                        padding: 30px 0 80px 0;
+                        margin: 0 auto;
+
+
+                    }
+                    li a{
+                        color: #204d74;
+                    }
+                    h3{
+                        align-items: center;
+                        margin: 0 auto;
+                    }
+                    a{
+                        color: #c12e2a;
+                    }
+                body{
+                    font-family: 'Kanit', sans-serif;
+                }
+
+
+            </style>
+        </head>
+        <body style="margin: 0 auto; ">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="navbar navbar-inverse">
+                        <!--ข้อมูลพื้นฐาน-->
+                        <ul class="nav navbar-nav">
+                            <li><a href="/">หน้าหลัก</a></li>|
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">ข้อมูลพื้นฐาน
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/showdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสหกรณ์</a></li>
+                                <li><a href="/showfarm"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลฟาร์ม</a></li>
+                                <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                <li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>
+                                <li><a href="/showbreeds"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสายพันธุ์โคขุน</a></li>
+                                <li><a href="/showcowdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                            </ul>
+                        </li>
+                        </ul>
+                        <!---\\ข้อมูลพื้นฐาน-->
+
+                        <!--ข้อมูลรับโคขุน-->
+                        <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">รับโคขุน
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                <li><a href="/showcow"><span class="glyphicon glyphicon-plus"></span> รับโคขุน</a></li>
+                            </ul>
+                        </li>
+                        </ul>
+                            <!--\\ข้อมูลรับโคขุน-->
+
+                            <!--ข้อมูลรับอาหารโคขุน-->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">รับอาหารโคขุน
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                    <li><a href="/showinputfoods"><span class="glyphicon glyphicon-plus"></span> รับอาหาร</a></li>
+                                    <li><a href="/showDatainputfoods"><span class="glyphicon glyphicon-folder-open"></span> ข้อมูลรับอาหาร</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                            <!--\\ข้อมูลรับอาหารโคขุน-->
+    <!--จัดูตรอาหาร-->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">สูตรอาหาร
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                    <li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลรับอาหาร</a></li>
+                                    <li><a href="/showRecipe"><span class="glyphicon glyphicon-plus"></span> จัดสูตรอาหาร</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                            <!--\\ข้อมูลรับอาหารโคขุน-->
+
+                            <!--บันทึกการจัดสูตรอาหาร-->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">บันทึกการให้สูตรอาหาร
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลอาหาร</a></li>
+                                    <li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลรับอาหาร</a></li>
+                                    <li><a href="/savefoods"><span class="glyphicon glyphicon-plus"></span> บันทึกการให้อาหาร</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                            <!--\\บันทึกการจัดสูตรอาหาร-->
+                            <!--แผนการฉีดวัคซีน-->
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">แผนการฉีดวัคซีน
+                                    <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+
+                                    <li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>
+                                    <li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                    <li><a href="/showplanvac"><span class="glyphicon glyphicon-plus"></span> แผนการฉีดวัคซีน</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                            <!--\\แผนการฉีดวัคซีน-->
+
+                        <p class="navbar-text"></p>
+                        <ul class="nav navbar-nav" style="float: right;">
+                            <li><a href="/addmember">เพิ่มสมาชิก</a></li>
+                            <li><a href="#" style="color: white;">👤 คุณ @session.get("name")||@session.get("position")</a></li>
+                            <li><a href="/Logout">ออกจากระบบ</a></li>
+
+                        </ul>
+                    </nav>
+
+
+
+
+                    <div class="row">
+
+                        @*<div class="col-md-2">*@
+                            @*<img src="/assets/images/001.jpg" width="200" class="img-rounded" alt="Cinque Terre" style="margin-top: -16px;">*@
+
+
+
+                            @*<div class="panel-group" id="accordion">*@
+                                @*<div class="panel panel-default">*@
+                                    @*<div class="panel-heading">*@
+                                        @*<h4 class="panel-title">*@
+                                            @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">*@
+                                                @*<span class="glyphicon glyphicon-cog"></span> จัดการข้อมูลพื้นฐาน*@
+                                            @*</a>*@
+                                        @*</h4>*@
+                                    @*</div>*@
+                                    @*<div id="collapse1" class="panel-collapse collapse in">*@
+                                        @*<div class="panel-body">*@
+                                            @*<div class="list-group">*@
+                                                @*<ul class="nav nav-pills nav-stacked">*@
+                                                    @*<li><a href="/showdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสหกรณ์</a></li>*@
+                                                    @*<li><a href="/showfarm"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลฟาร์ม</a></li>*@
+                                                    @*<li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>*@
+                                                    @*<li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>*@
+                                                    @*<li><a href="/showbreeds"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสายพันธุ์โคขุน</a></li>*@
+                                                    @*<li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>*@
+                                                @*</ul>*@
+                                            @*</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                    @*<div class="panel panel-default">*@
+                                        @*<div class="panel-heading">*@
+                                            @*<h4 class="panel-title">*@
+                                                @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">*@
+                                                    @*<span class="glyphicon glyphicon-shopping-cart"></span> ซื้อ-ขายโคขุน*@
+                                                @*</a>*@
+                                            @*</h4>*@
+                                        @*</div>*@
+                                        @*<div id="collapse2" class="panel-collapse collapse">*@
+                                            @*<div class="panel-body">*@
+                                                @*<div class="list-group">*@
+                                                    @*<ul class="nav nav-pills nav-stacked">*@
+                                                        @*<li><a href="/showcow1"><span class="glyphicon glyphicon-list-alt"></span> รับโคขุน</a></li>*@
+
+                                                    @*</ul>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                    @*<div class="panel panel-default">*@
+                                        @*<div class="panel-heading">*@
+                                            @*<h4 class="panel-title">*@
+                                                @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">*@
+                                                    @*<span class="glyphicon glyphicon-cutlery"></span>อาหารโคขุน*@
+                                                @*</a>*@
+                                            @*</h4>*@
+                                        @*</div>*@
+                                        @*<div id="collapse3" class="panel-collapse collapse">*@
+                                            @*<div class="panel-body">*@
+                                                @*<div class="list-group">*@
+                                                    @*<ul class="nav nav-pills nav-stacked">*@
+                                                        @*<li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> รับอาหารโคขุน</a></li>*@
+                                                        @*<li><a href="/addRecipe"><span class="glyphicon glyphicon-list-alt"></span> จัดสูตรอาหาร</a></li>*@
+
+                                                    @*</ul>*@
+                                                @*</div>*@
+                                            @*</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                    @*<div class="panel panel-default">*@
+                                        @*<div class="panel-heading">*@
+                                            @*<h4 class="panel-title">*@
+                                                @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Collapsible Group 3</a>*@
+                                            @*</h4>*@
+                                        @*</div>*@
+                                        @*<div id="collapse4" class="panel-collapse collapse">*@
+                                            @*<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,*@
+                                                @*sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,*@
+                                                @*quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                    @*<div class="panel panel-default">*@
+                                        @*<div class="panel-heading">*@
+                                            @*<h4 class="panel-title">*@
+                                                @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Collapsible Group 3</a>*@
+                                            @*</h4>*@
+                                        @*</div>*@
+                                        @*<div id="collapse5" class="panel-collapse collapse">*@
+                                            @*<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,*@
+                                                @*sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,*@
+                                                @*quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>*@
+                                        @*</div>*@
+                                    @*</div>*@
+                                @*</div>*@
+                            @*</div>*@
+
+                                <!--<div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">รับ-ขายโคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> รับโคขุนเข้าฟาร์ม</span></a>
+                                    <a href="/sellscow" class="list-group-item"><span class="glyphicon glyphicon-tag"> ขายโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-bitcoin"> ขายมูลโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"> ชำระเงินจากการขายโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">อาหารโคขุน</a>
+                                    <a href="/addfoods" class="list-group-item"><span class="glyphicon glyphicon-plus-sign" style="color: #5e5e5e;"> รับอาหารโคขุน</span></a>
+                                    <a href="/addRecipe" class="list-group-item"><span class="glyphicon glyphicon-cutlery"> จัดสูตรอาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-list"> ตารางการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บันทึกการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บ้อมูลให้อาหารโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">แผนการฉีดวัคซีน- บันทึกการเจริญเติบโต</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-calendar" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการเจริญเติบโต</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">การฉีดวัคซีนให้โคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                </div>
+                            </div>-->
+
+
+
+                        </div>
+                        <div class="col-md-12" >
+
+                                <!--<ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li class="active">Data</li>
+                        </ol>-->
+                            @content
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <center> <footer>
+                                FarmKK : ฟาร์มโคขุนหนองแวง บ้านหนองเวง ตำบลหนองแก้ว อำเภอเมือง จังหวัดร้อยเอ็ด 45000.<br>
+                                <span class="glyphicon glyphicon-copyright-mark"></span> Copyright KhokhunFram : FarmKK 2018.<br>
+                                <span class="glyphicon glyphicon-earphone"></span> 093-119-9915 | ผู้ดูแลระบบ<span class="glyphicon glyphicon-earphone"> </span>093-119-9915 | เจ้าของฟาร์ม
+                            </footer>  </center>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </body>
+    </html>
+        <!--/////////////////////////////////////////////////////////////////-->
+}else{
+  @if(session.get("position")=="User"){
+      <!--/////////////////////////////////////////////////////////////////-->
+      <html>
+          <head>
+              <title>
+                  ระบบจัดการข้อมูลโคขุน
+              </title>
+              <link href="/assets/images/cow.png" type="image/png" rel="icon">
+              <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+              <style type="text/css">
+
+                      .header{
+
+                          background-color: #1b6d85;
+                      }
+
+                      footer{
+                          height: 40px;
+                          width: 100%;
+                          background-color: #222222; color: #faf2cc;
+                          padding: 30px 0 80px 0;
+                          margin: 0 auto;
+
+
+                      }
+                      li a{
+                          color: #204d74;
+                      }
+                      h3{
+                          align-items: center;
+                          margin: 0 auto;
+                      }
+                      a{
+                          color: #c12e2a;
+                      }
+
+                      body{
+
+                      }
+              </style>
+          </head>
+          <body style="margin: 0 auto; " >
+              <div class="container-fluid">
+                  <div class="row">
+                      <nav class="navbar navbar-inverse">
+                              <!--ข้อมูลพื้นฐาน-->
+                          <ul class="nav navbar-nav">
+                              <li><a href="/">หน้าหลัก</a></li>|
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">ข้อมูลพื้นฐาน
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a href="/showdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสหกรณ์</a></li>
+                                      <li><a href="/showfarm"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลฟาร์ม</a></li>
+                                      <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                      <li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>
+                                      <li><a href="/showbreeds"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสายพันธุ์โคขุน</a></li>
+                                      <li><a href="/showcowdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!---\\ข้อมูลพื้นฐาน-->
+
+                              <!--ข้อมูลรับโคขุน-->
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">รับโคขุน
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                      <li><a href="/addcow"><span class="glyphicon glyphicon-plus"></span> รับโคขุน</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!--\\ข้อมูลรับโคขุน-->
+
+                              <!--ข้อมูลรับอาหารโคขุน-->
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">รับอาหารโคขุน
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+
+                                      <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                      <li><a href="/addinputfoods"><span class="glyphicon glyphicon-plus"></span> รับอาหาร</a></li>
+                                      <li><a href="/showinputfoods"><span class="glyphicon glyphicon-folder-open"></span> ข้อมูลรับอาหาร</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!--\\ข้อมูลรับอาหารโคขุน-->
+                              <!--จัดูตรอาหาร-->
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">สูตรอาหาร
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+
+                                      <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>
+                                      <li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลรับอาหาร</a></li>
+                                      <li><a href="/showRecipe"><span class="glyphicon glyphicon-plus"></span> จัดสูตรอาหาร</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!--\\จัดสูตรอาหาร-->
+                              <!--บันทึกการจัดสูตรอาหาร-->
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">บันทึกการให้สูตรอาหาร
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+
+                                      <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลอาหาร</a></li>
+                                      <li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลรับอาหาร</a></li>
+                                      <li><a href="/savefoods"><span class="glyphicon glyphicon-plus"></span> บันทึกการให้อาหาร</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!--\\บันทึกการจัดสูตรอาหาร-->
+    <!--แผนการฉีดวัคซีน-->
+                          <ul class="nav navbar-nav">
+                              <li class="dropdown">
+                                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">แผนการฉีดวัคซีน
+                                      <span class="caret"></span></a>
+                                  <ul class="dropdown-menu">
+
+                                      <li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>
+                                      <li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                      <li><a href="/showplanvac"><span class="glyphicon glyphicon-plus"></span> แผนการฉีดวัคซีน</a></li>
+                                  </ul>
+                              </li>
+                          </ul>
+                              <!--\\แผนการฉีดวัคซีน-->
+
+
+                          <p class="navbar-text"></p>
+                          <ul class="nav navbar-nav" style="float: right;">
+                              <li><a href="/addmember">เพิ่มสมาชิก</a></li>
+                              <li><a href="#" style="color: white;">👤 คุณ @session.get("name")||@session.get("position")</a></li>
+                              <li><a href="/Logout">ออกจากระบบ</a></li>
+
+                          </ul>
+                      </nav>
+
+
+
+
+                      <div class="row">
+
+                          @*<div class="col-md-2">*@
+                          @*<img src="/assets/images/001.jpg" width="200" class="img-rounded" alt="Cinque Terre" style="margin-top: -16px;">*@
+
+
+
+                          @*<div class="panel-group" id="accordion">*@
+                          @*<div class="panel panel-default">*@
+                          @*<div class="panel-heading">*@
+                          @*<h4 class="panel-title">*@
+                          @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">*@
+                          @*<span class="glyphicon glyphicon-cog"></span> จัดการข้อมูลพื้นฐาน*@
+                          @*</a>*@
+                          @*</h4>*@
+                          @*</div>*@
+                          @*<div id="collapse1" class="panel-collapse collapse in">*@
+                          @*<div class="panel-body">*@
+                          @*<div class="list-group">*@
+                          @*<ul class="nav nav-pills nav-stacked">*@
+                          @*<li><a href="/showdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสหกรณ์</a></li>*@
+                          @*<li><a href="/showfarm"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลฟาร์ม</a></li>*@
+                          @*<li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลประเภทอาหาร</a></li>*@
+                          @*<li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>*@
+                          @*<li><a href="/showbreeds"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสายพันธุ์โคขุน</a></li>*@
+                          @*<li><a href="/showcow"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>*@
+                          @*</ul>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*<div class="panel panel-default">*@
+                          @*<div class="panel-heading">*@
+                          @*<h4 class="panel-title">*@
+                          @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">*@
+                          @*<span class="glyphicon glyphicon-shopping-cart"></span> ซื้อ-ขายโคขุน*@
+                          @*</a>*@
+                          @*</h4>*@
+                          @*</div>*@
+                          @*<div id="collapse2" class="panel-collapse collapse">*@
+                          @*<div class="panel-body">*@
+                          @*<div class="list-group">*@
+                          @*<ul class="nav nav-pills nav-stacked">*@
+                          @*<li><a href="/showcow1"><span class="glyphicon glyphicon-list-alt"></span> รับโคขุน</a></li>*@
+
+                          @*</ul>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*<div class="panel panel-default">*@
+                          @*<div class="panel-heading">*@
+                          @*<h4 class="panel-title">*@
+                          @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">*@
+                          @*<span class="glyphicon glyphicon-cutlery"></span>อาหารโคขุน*@
+                          @*</a>*@
+                          @*</h4>*@
+                          @*</div>*@
+                          @*<div id="collapse3" class="panel-collapse collapse">*@
+                          @*<div class="panel-body">*@
+                          @*<div class="list-group">*@
+                          @*<ul class="nav nav-pills nav-stacked">*@
+                          @*<li><a href="/showinputfoods"><span class="glyphicon glyphicon-list-alt"></span> รับอาหารโคขุน</a></li>*@
+                          @*<li><a href="/addRecipe"><span class="glyphicon glyphicon-list-alt"></span> จัดสูตรอาหาร</a></li>*@
+
+                          @*</ul>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*<div class="panel panel-default">*@
+                          @*<div class="panel-heading">*@
+                          @*<h4 class="panel-title">*@
+                          @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Collapsible Group 3</a>*@
+                          @*</h4>*@
+                          @*</div>*@
+                          @*<div id="collapse4" class="panel-collapse collapse">*@
+                          @*<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,*@
+                          @*sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,*@
+                          @*quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*<div class="panel panel-default">*@
+                          @*<div class="panel-heading">*@
+                          @*<h4 class="panel-title">*@
+                          @*<a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Collapsible Group 3</a>*@
+                          @*</h4>*@
+                          @*</div>*@
+                          @*<div id="collapse5" class="panel-collapse collapse">*@
+                          @*<div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,*@
+                          @*sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,*@
+                          @*quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+                          @*</div>*@
+
+                              <!--<div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">รับ-ขายโคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> รับโคขุนเข้าฟาร์ม</span></a>
+                                    <a href="/sellscow" class="list-group-item"><span class="glyphicon glyphicon-tag"> ขายโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-bitcoin"> ขายมูลโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"> ชำระเงินจากการขายโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">อาหารโคขุน</a>
+                                    <a href="/addfoods" class="list-group-item"><span class="glyphicon glyphicon-plus-sign" style="color: #5e5e5e;"> รับอาหารโคขุน</span></a>
+                                    <a href="/addRecipe" class="list-group-item"><span class="glyphicon glyphicon-cutlery"> จัดสูตรอาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-list"> ตารางการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บันทึกการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บ้อมูลให้อาหารโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">แผนการฉีดวัคซีน- บันทึกการเจริญเติบโต</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-calendar" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการเจริญเติบโต</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">การฉีดวัคซีนให้โคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                </div>
+                            </div>-->
+
+
+
+                      </div>
+                      <div class="col-md-12" >
+
+                              <!--<ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li class="active">Data</li>
+                        </ol>-->
+                          @content
+                      </div>
+                  </div>
+
+
+
+
+                  <div class="row">
+                      <div class="col-md-12">
+                          <center> <footer>
+                              FarmKK : ฟาร์มโคขุนหนองแวง บ้านหนองเวง ตำบลหนองแก้ว อำเภอเมือง จังหวัดร้อยเอ็ด 45000.<br>
+                              <span class="glyphicon glyphicon-copyright-mark"></span> Copyright KhokhunFram : FarmKK 2018.<br>
+                              <span class="glyphicon glyphicon-earphone"></span> 093-119-9915 | ผู้ดูแลระบบ<span class="glyphicon glyphicon-earphone"> </span>093-119-9915 | เจ้าของฟาร์ม
+                          </footer>  </center>
+                      </div>
+                  </div>
+
+              </div>
+
+
+          </body>
+      </html>
+      <!--/////////////////////////////////////////////////////////////////-->
+  } else{
+
+      <!--/////////////////////////////////////////////////////////////////-->
+      <html>
+          <head>
+              <title>
+                  ระบบจัดการข้อมูลโคขุน
+              </title>
+              <link href="/assets/images/cow.png" type="image/png" rel="icon">
+              <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+              <meta name="viewport" content="width=device-width, initial-scale=1">
+              <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+              <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+              <style type="text/css">
+
+                      .header{
+
+                          background-color: #1b6d85;
+                      }
+
+                      footer{
+                          height: 40px;
+                          width: 100%;
+                          background-color: #222222; color: #faf2cc;
+                          padding: 30px 0 80px 0;
+                          margin: 0 auto;
+
+
+                      }
+                      li a{
+                          color: #204d74;
+                      }
+                      h3{
+                          align-items: center;
+                          margin: 0 auto;
+                      }
+                      a{
+                          color: #c12e2a;
+                      }
+
+                      body{
+
+                      }
+              </style>
+          </head>
+          <body style="margin: 0 auto; ">
+
+              <div class="container-fluid">
+                  <div class="row">
+                      <nav class="navbar navbar-inverse">
+                          <ul class="nav navbar-nav">
+                              <li><a href="#">หน้าหลัก</a></li>
+                          </ul>
+                          <p class="navbar-text">ระบบจัดการฐานข้อมูลหาร์ามโคขุนหนองแวง</p>
+                          <ul class="nav navbar-nav" style="float: right;">
+                              <li><a href="/LoginFarmKK">เข้าสู่ระบบ</a></li>
+                          </ul>
+                      </nav>
+
+
+
+
+                      <div class="row">
+                          <div class="col-md-2">
+                              <img src="assets/images/001.jpg" width="200" class="img-rounded" alt="Cinque Terre" style="margin-top: -16px;">
+
+
+
+                              <div class="panel-group" id="accordion">
+                                  <div class="panel panel-default">
+                                      <div class="panel-heading">
+                                          <h4 class="panel-title">
+                                              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                  <span class="glyphicon glyphicon-cog"></span> จัดการข้อมูลพื้นฐาน
+                                              </a>
+                                          </h4>
+                                      </div>
+                                      <div id="collapse1" class="panel-collapse collapse in">
+                                          <div class="panel-body">
+                                              <div class="list-group">
+                                                  <ul class="nav nav-pills nav-stacked">
+                                                      <li><a href="/showdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสหกรณ์</a></li>
+                                                      <li><a href="/showfarm"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลฟาร์ม</a></li>
+                                                      <li><a href="/showfoods"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลอาหารสัตว์</a></li>
+                                                      <li><a href="/showvac"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลวัคซีน</a></li>
+                                                      <li><a href="/showbreeds"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลสายพันธุ์โคขุน</a></li>
+                                                      <li><a href="/showcowdata"><span class="glyphicon glyphicon-list-alt"></span> ข้อมูลโคขุน</a></li>
+                                                  </ul>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      <div class="panel panel-default">
+                                          <div class="panel-heading">
+                                              <h4 class="panel-title">
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Collapsible Group 3</a>
+                                              </h4>
+                                          </div>
+                                          <div id="collapse4" class="panel-collapse collapse">
+                                              <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                                                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                                  <!--<div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">รับ-ขายโคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> รับโคขุนเข้าฟาร์ม</span></a>
+                                    <a href="/sellscow" class="list-group-item"><span class="glyphicon glyphicon-tag"> ขายโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-bitcoin"> ขายมูลโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-shopping-cart"> ชำระเงินจากการขายโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">อาหารโคขุน</a>
+                                    <a href="/addfoods" class="list-group-item"><span class="glyphicon glyphicon-plus-sign" style="color: #5e5e5e;"> รับอาหารโคขุน</span></a>
+                                    <a href="/addRecipe" class="list-group-item"><span class="glyphicon glyphicon-cutlery"> จัดสูตรอาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-list"> ตารางการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บันทึกการให้อาหารโคขุน</span></a>
+                                    <a href="/" class="list-group-item"><span class="glyphicon glyphicon-floppy-save"> บ้อมูลให้อาหารโคขุน</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">แผนการฉีดวัคซีน- บันทึกการเจริญเติบโต</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-calendar" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการฉีดวัคซีน</span></a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-floppy-save" style="color: #5e5e5e;"> บันทึกการเจริญเติบโต</span></a>
+                                </div>
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item  list-group-item-warning disabled">การฉีดวัคซีนให้โคขุน</a>
+                                    <a href="/addcow" class="list-group-item"><span class="glyphicon glyphicon-plus" style="color: #5e5e5e;"> แผนการฉีดวัคซีน</span></a>
+                                </div>
+                            </div>-->
+
+
+
+                          </div>
+                          <div class="col-md-10" >
+
+                                  <!--<ol class="breadcrumb">
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Library</a></li>
+                            <li class="active">Data</li>
+                        </ol>-->
+                              @content
+                          </div>
+                      </div>
+
+
+
+
+                      <div class="row">
+                          <div class="col-md-12">
+                              <center> <footer>
+                                  FarmKK : ฟาร์มโคขุนหนองแวง บ้านหนองเวง ตำบลหนองแก้ว อำเภอเมือง จังหวัดร้อยเอ็ด 45000.<br>
+                                  <span class="glyphicon glyphicon-copyright-mark"></span> Copyright KhokhunFram : FarmKK 2018.<br>
+                                  <span class="glyphicon glyphicon-earphone"></span> 093-119-9915 | ผู้ดูแลระบบ<span class="glyphicon glyphicon-earphone"> </span>093-119-9915 | เจ้าของฟาร์ม
+                              </footer>  </center>
+                          </div>
+                      </div>
+
+                  </div>
+
+
+
+              </div>
+
+          </body>
+      </html>
+          <!--/////////////////////////////////////////////////////////////////-->
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+

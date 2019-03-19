@@ -1,0 +1,61 @@
+@(myForm:Form[Recipe],myList:List[Inputfood],foodList:List[Foods])
+@import helper._;
+<html>
+    <head>
+        <title>
+            จัดสูตรอาหารโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="/assets/stylesheets/bootstrap4/css/bootstrap.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                @if(flash.containsKey("Error")){
+                    <div class="alert alert-danger">
+                        <strong>เกิดข้อผิดพลาด</strong>@flash.get("Error")
+                    </div>
+                }
+
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <p class="card-text">
+                        <img src="\assets\images\recipefood.jpg" width="100%" height="auto">
+                            <h2>สูตรอาหารโคขุน</h2>
+                        <p style="color: red;">**เป็นขั้นตอนการดูสูตร รายละเอียตรสูตรต่างๆของอาหารโคขุน</p>
+                        @helper.form(action = routes.RecipeController.input() ,'enctype->"multipart/form-data"){
+
+
+                        @inputDate(myForm("recipe1"),'_label->"วันที่จัดสูตร",'size->"10",'maxlenth->"9" , 'required->"required")
+                            @select(myForm("inputfood.id_ifoods"),options=myList.map(fac=>fac.getId_ifoods->fac.getFood.getAnimalfoods_name),'_label->"เลือกอาหารเพื่อจัดสูตร")
+                          @checkbox(myForm("inputfood.id_ifoods"))
+                            @textarea(myForm("recipe2"),'_label->"ขั้นตอนการจัดทำสูตรอาหารสัตว์",'rows->"10",'cols->"40",'maxlenth->"9" , 'required->"required")
+
+                            <input type="submit" value="บันทึก" class="btn-success">
+
+                            }
+                        </p>
+                    </div>
+                </div>
+                <script language="JavaScript">
+                        function autoResize(id){
+                            var newheight;
+                            var newwidth;
+
+                            if(document.getElementById){
+                                newheight=document.getElementById(id).contentWindow.document .body.scrollHeight;
+                                newwidth=document.getElementById(id).contentWindow.document .body.scrollWidth;
+                            }
+
+                            document.getElementById(id).height= (newheight) + "px";
+                            document.getElementById(id).width= (newwidth) + "px";
+                        }
+                </script>
+                <iframe src="showRecipe" width="100%" height="100%" name="CHANGETHIS" id="CHANGETHIS" marginheight="0" frameborder="0" onLoad="autoResize('CHANGETHIS');"></iframe>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </body>
+</html>

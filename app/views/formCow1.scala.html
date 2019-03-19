@@ -1,0 +1,72 @@
+
+@(myForm:Form[Cows],breedList:List[breeds])
+@import helper._;
+<html>
+    <head>
+        <title>
+            ระบบจัดการข้อมูลโคขุน
+        </title>
+        <link href="/assets/images/cow.png" type="image/png" rel="icon">
+        <link href="/assets/stylesheets/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+
+                .header{
+
+                    background-color: #1b6d85;
+                }
+                a{
+                    color: white;
+                }
+                footer{
+                    height: 40px;
+                    background-color: #222222; color: #faf2cc;
+                    padding: 10px;
+
+                }
+                li a{
+                    color: #204d74;
+                }
+                h3{
+                    align-items: center;
+                    margin: 0 auto;
+                }
+
+        </style>
+    </head>
+    <body style="margin: 0 auto;">
+
+        <div class="container">
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <ol class="breadcrumb">
+                            <li><a href="/">หน้าหลัก</a></li>
+                            <li><a href="/showcow">ข้อมูลโคขุน</a></li>
+                            <li class="active">รับโคขุน</li>
+                        </ol>
+                        <h1>รับโคขุนเข้าฟาร์ม</h1>
+                        <p style="color: red;">**เป็นการที่เจ้าของฟาร์มใช้กรอกข้อมูลโคขุนที่ได้ซื้อโคขุนเข้ามาภายในฟาร์ม กรอกแล้วข้อมูลจะส่งไปที่ข้อมูลพื้นฐานในส่วนของ "ข้อมูลโคขุน" ครับ</p>
+                        @if(flash.containsKey("Errorcow")){
+                            <div class="alert alert-danger">
+                                <strong>เกิดข้อผิดพลาด</strong> @flash.get("Errorcow")
+                            </div>
+                        }
+                        @helper.form(action = routes.cowkhunController.update1() ,'enctype->"multipart/form-data"){
+
+                            @inputText(myForm("cow_id"),'_label->"รหัสโคขุน",'size->"10",'maxlength->"3",'required->"required" ,'class->"form-control")
+                            @inputText(myForm("price"),'_label->"ราคา",'size->"10" ,'placeholder->"กรอกราคาซื้อโคขุน" ,'class->"form-control")
+                            @inputRadioGroup(myForm("status"),options=Seq("0"->"ยืนยัน"),'_label->"ยืนยันว่าคุณไม่ใช่โรบอท")
+                            @inputDate(myForm("date"),'_label->"วันที่รับ",'class->"form-control" ,'class->"form-control")
+                            <input type="submit" value="บันทึก" class="btn-success" onclick="return confirm('คุณต้องการที่จะ ยืนยันสถานะ เพื่อรับโคขุนเข้าสู่ฟาร์ม เมื่อท่านทำการจ่ายเงินและได้รับโคแล้วก็กดที่ปุ่ม OK เพื่อยืนยันรับโคขุน ')">
+
+                        <br>
+
+
+}
+</div>
+                </div>
+
+
+        </div>
+    </body>
+</html>
